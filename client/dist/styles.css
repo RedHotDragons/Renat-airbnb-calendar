@@ -1,0 +1,81 @@
+
+.header-container {
+  padding: 0px;
+  display: block;
+
+}
+
+.mini-header-container {
+  color: rgb(113, 113, 113) !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  padding-top: 8px !important;
+}
+
+.mini-header {
+  line-height: 18px !important;
+  max-height: 36px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  height: 36px !important;
+}
+
+.main-header {
+  color: rgb(34, 34, 34) !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 22px !important;
+  line-height: 26px !important;
+}
+
+h2 {
+  color: inherit !important;
+  font-size: 1em !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.days-list {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  list-style: none;
+  display: inline;
+
+}
+
+.calendar-container {
+  border: 1px solid black;
+  max-width: 65%;
+}
+
+li {
+  float: left;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+/* td {
+  display: table-cell;
+  vertical-align: top;
+  border-spacing: 0px 2px;
+  border-collapse: separate !important;
+}
+
+tr {
+  display: table-row;
+  vertical-align: top;
+  border-color: inherit;
+  box-sizing: border-box;
+  background: transparent !important;
+  text-align: center !important;
+} */
+
+td {
+  border: 1px solid red;
+}
