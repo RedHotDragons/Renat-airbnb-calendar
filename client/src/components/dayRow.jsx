@@ -2,46 +2,46 @@ import React from 'react';
 
 var DayRow = ({info, total}) => {
 
-  var day = info.day;
-  var start = info.startOn;
+  var createWeek = () => {
+    // create an array which contains the day number for
+    // each day in the week. If it is the first week, add no
+    // text for days that are not part of this month. If it is
+    // the last week, add no text for days that are not part of this
+    // calendar month
+    var day = info.day;
+    var start = info.startOn;
 
-  var arr = [];
-  if (start != 0) {
-    for (let i =0; i<7; i++) {
-      if (i<start) {
-        arr.push("");
-      } else {
-        arr.push(day);
-        day++;
+    var week = [];
+    if (start != 0) {
+      // special case for first week
+      for (let i =0; i<7; i++) {
+        if (i<start) {
+          week.push("");
+        } else {
+          week.push(day);
+          day++;
+        }
+      }
+    } else {
+      for (let i =0; i<7; i++) {
+        if (day <= total) {
+          week.push(day);
+          day++;
+        } else {
+          week.push("");
+        }
       }
     }
-  } else {
-    for (let i =0; i<7; i++) {
-      if (day <= total) {
-        arr.push(day);
-        day++;
-      } else {
-        arr.push("");
-      }
-    }
+    return week;
   }
 
 
 
   return (
     <tr>
-      {arr.map(day=><td scope="row">{day}</td>)}
+      {createWeek().map(day=><td scope="row">{day}</td>)}
     </tr>
   );
 };
 
 export default DayRow;
-
-// count = 0 , 4, 11, 18, 25
-// [
-//   {day:1, startOn: 4}, 7 - 4 + 1
-//   {day:4, startOn: 0} 7 + 4
-//   {day:11, startOn: 0} 7 + 11
-//   {day:18, startOn: 0} 7 + 18
-//   {day:25, startOn: 0} 25 + 7 =32
-// ]
