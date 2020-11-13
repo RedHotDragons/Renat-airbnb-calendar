@@ -37,17 +37,10 @@ const makeRandomReservations = () => {
 
 // Run this function to populate the database with random dates
 const populate = (callback) => {
-  mongoose.connect('mongodb://localhost/calendar');
-  mongoose.connection.dropCollection('datemodels', (err) => {
-    if (err) {
-      console.log('error dropping', err);
-    }
-  });
 
   const reservations = makeRandomReservations();
 
   db.saveMany(reservations, (err, data) => {
-    mongoose.connection.close();
     if (err) { callback(err); } else {
       callback(null, data);
     }

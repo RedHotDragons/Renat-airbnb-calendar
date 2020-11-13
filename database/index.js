@@ -11,13 +11,38 @@ const dateSchema = mongoose.Schema({
 });
 
 // Model
-const dateModel = mongoose.model('dateModel', dateSchema);
+const dateModel = mongoose.model('datemodels', dateSchema);
 
 // Given an array of objects, save all objects to database
 const saveMany = (reservations, callback) => {
+  mongoose.connect('mongodb://localhost/calendar');
+
+  mongoose.connection.dropCollection('datemodels', (err) => {
+    if (err) {
+      console.log('error dropping', err);
+    }
+  });
+
   dateModel.create(reservations)
-    .then((data) => callback(null, data))
-    .catch((error) => callback(error));
+    .then((data) => {
+      mongoose.connection.close();
+      callback(null, data)
+    })
+    .catch((error) => {
+      mongoose.connection.close();
+      callback(error)
+    });
 };
 
-module.exports = {saveMany};
+const getAll = (callback) => {
+  mongoose.connect('mongodb://localhost/calendar');
+  dateModel.find((err, data) => {
+    mongoose.connection.close();
+    if (err) {callback(err)} else {callback(null, data);}
+  });
+}
+
+module.exports = {
+  saveMany,
+  getAll
+};
