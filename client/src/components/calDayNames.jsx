@@ -1,17 +1,15 @@
 import React from 'react';
 
 var DayNames = () => (
-  <div className="days-list">
-    <ul>
-      <li>Su</li>
-      <li>Mo</li>
-      <li>Tu</li>
-      <li>We</li>
-      <li>Th</li>
-      <li>Fr</li>
-      <li>Sa</li>
-    </ul>
-  </div>
+  <ul className="days-list">
+    <div className="day-name-container"><li>Su</li></div>
+    <div className="day-name-container"><li>Mo</li></div>
+    <div className="day-name-container"><li>Tu</li></div>
+    <div className="day-name-container"><li>We</li></div>
+    <div className="day-name-container"><li>Th</li></div>
+    <div className="day-name-container"><li>Fr</li></div>
+    <div className="day-name-container"><li>Sa</li></div>
+  </ul>
 )
 
 export default DayNames;

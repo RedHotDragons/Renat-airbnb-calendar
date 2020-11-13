@@ -1,31 +1,23 @@
-body {
+html {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  color: rgb(34,34,34);
 }
 
 
 .header-container {
   padding: 0px;
   display: block;
+  align-content: flex-start;
 
 }
 
-.mini-header-container {
+.mini-header {
   color: rgb(113, 113, 113) !important;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   line-height: 18px !important;
-  padding-top: 8px !important;
-}
-
-.mini-header {
-  line-height: 18px !important;
   max-height: 36px !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
   height: 36px !important;
 }
 
@@ -35,6 +27,8 @@ body {
   font-weight: 600 !important;
   font-size: 22px !important;
   line-height: 26px !important;
+  padding: 0px;
+  margin: 0px;
 }
 
 h2 {
@@ -46,76 +40,98 @@ h2 {
   padding: 0px !important;
 }
 
-ul {
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-  list-style: none;
-  display: inline;
-
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 65%;
+  height: 364px;
 }
 
-.calendar-container {
-  border: 1px solid black;
-  max-width: 65%;
-  text-align: center;
-  float: center;
+.day-name-container {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* height: 10%; */
+  margin-left: 1px;
+  margin-right: 1px;
+
 }
 
 li {
-  float: left;
-  margin-left: 7px;
-  margin-right: 7px;
-  border: 1px solid green;
-  padding: 1px;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+  margin:5px;
+  color: rgb(113, 113, 113);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .days-list {
-  text-align: center;
-  margin-left: 65px;
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
-/* td {
-  display: table-cell;
-  vertical-align: top;
-  border-spacing: 0px 2px;
-  border-collapse: separate !important;
-}
-
-tr {
-  display: table-row;
-  vertical-align: top;
-  border-color: inherit;
-  box-sizing: border-box;
-  background: transparent !important;
-  text-align: center !important;
-} */
-
-td {
-  border: 1px solid red;
-  padding: 8px;
-  vertical-align: top;
-  display: table-cell;
-}
 
 .title-bar-container {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
 }
 
 table {
-  float: center;
-  display: flex;
-  justify-content: center;
-  margin: 10px;
+  display: grid;
+  height: 100%;
+  width:100%;
 }
+
+tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  height: 20%;
+  width:100%;
+}
+td {
+  display: flex;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100%;
+
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-size-adjust: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
 
 .arrow-button {
   background-color: transparent;
+  font-size: 100%;
   margin: 5px;
   border-radius: 100%;
+  position: relative;
   border: none;
 }
 
 .arrow-button:hover {
-  background-color: lightgray;
+  background-color: rgb(240, 240, 240);
   cursor: pointer;
 }
 

@@ -36,7 +36,8 @@ export default DayTable;
 
 // example output from makeRows()
 // [
-//   {day:1, startOn: 4},
+//   {day:1, startOn: 4}, (day 4 is Thursday, everyday before thursday on
+//                         the first row will be blank)
 //   {day:4, startOn: 0},
 //   {day:11, startOn: 0},
 //   {day:18, startOn: 0},
