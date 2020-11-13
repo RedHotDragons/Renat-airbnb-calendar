@@ -47,4 +47,6 @@ const populate = (callback) => {
   });
 };
 
+populate((err, data)=>{console.log('populated');})
+
 module.exports = { populate };
