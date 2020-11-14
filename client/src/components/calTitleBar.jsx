@@ -1,29 +1,51 @@
 import React from 'react';
 
-var TitleBar = ({month, year, changeForward, changeBack}) => {
+import rightArrow from '../images/right-arrow.js';
+import leftArrow from '../images/left-arrow.js';
 
-  var getMonth = () => {
+class TitleBar extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      disabled: true
+    };
+    this.handleBack = this.handleBack.bind(this);
+    this.handleForward = this.handleForward.bind(this);
+  }
+
+  getMonth() {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November', 'December']
-    return months[month];
+    return months[this.props.month];
   }
 
-  var handleForward = (e) => {
+  handleForward(e) {
     e.preventDefault();
-    changeForward();
+    this.props.changeMonth('forward');
+    this.setState({
+      disabled: false
+    });
   }
 
-  var handleBack = (e) => {
+  handleBack (e) {
     e.preventDefault();
-    changeBack();
+    this.props.changeMonth('back');
   }
 
-  return(
-    <div className="title-bar-container">
-      <button className="arrow-button" onClick={handleBack}>&lt;</button>
-      {getMonth()} {year}
-      <button className="arrow-button" onClick={handleForward}>&gt;</button>
-    </div>
-  );
+  render () {
+    var today = new Date;
+    if (today.getMonth() === this.props.month && today.getFullYear() === this.props.year) {
+      this.state.disabled = true;
+    }
+    return(
+      <div className="title-bar-container">
+        <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.leftArrow.arrow}</button>
+        {this.getMonth()} {this.props.year}
+    <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.rightArrow.arrow}</button>
+      </div>
+    );
+  }
 }
+
+
 
 export default TitleBar;

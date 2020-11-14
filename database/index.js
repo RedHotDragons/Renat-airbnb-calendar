@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 // Schema
+
+// contains is an array of strings specifying all the months
+// that are in this reservation
+// ex. ["92020", "102020"] means that month 9 of 2020 and month 10 of 2020
+//     have days that will be reserved
 const dateSchema = mongoose.Schema({
   startYear: { type: Number },
   startMonth: { type: Number },
@@ -8,6 +13,7 @@ const dateSchema = mongoose.Schema({
   endYear: { type: Number },
   endMonth: { type: Number },
   endDay: { type: Number },
+  contains: [String],
 });
 
 // Model
@@ -42,7 +48,16 @@ const getAll = (callback) => {
   });
 }
 
+const getSome = (params, callback) => {
+  mongoose.connect('mongodb://localhost/calendar', {poolSize: 10});
+  dateModel.find( {contains: String(params.month) + String(params.year)}, (err, data) => {
+    mongoose.connection.close();
+    if (err) {callback(err)} else {callback(null, data);}
+  });
+}
+
 module.exports = {
   saveMany,
-  getAll
+  getAll,
+  getSome
 };

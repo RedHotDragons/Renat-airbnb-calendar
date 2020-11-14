@@ -11,6 +11,15 @@ const getAll = (callback) => {
   })
 }
 
+const getSome = (params, callback) => {
+  db.getSome( params, (err, data)=>{
+    if (err) {callback(err);} else {
+      callback(null, data);;
+    }
+  });
+}
+
 module.exports = {
-  getAll
+  getAll,
+  getSome
 };

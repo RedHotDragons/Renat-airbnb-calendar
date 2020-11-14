@@ -111,7 +111,7 @@ td {
 
   text-align: center;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 20px;
   text-size-adjust: 100%;
   align-items: center;
@@ -125,17 +125,31 @@ td {
   background-color: transparent;
   font-size: 100%;
   margin: 5px;
-  border-radius: 100%;
-  position: relative;
+  border-radius: 50%;
   border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .arrow-button:hover {
-  background-color: rgb(240, 240, 240);
-  cursor: pointer;
+  background-color:rgb(247, 247, 247);
 }
 
 .arrow-button:focus {
   outline: none;
   box-shadow: none;
 }
+
+/* .svgArrow {
+  width: 20px;
+  height: 20px;
+} */
+
+/* .disabled {
+  color: rgb(177,177,177);
+  text-decoration: line-through;
+} */

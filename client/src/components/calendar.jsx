@@ -11,10 +11,10 @@ class Calendar extends React.Component {
     this.state = {
       year: this.currentDay.getFullYear(),
       month: this.currentDay.getMonth(),
-      day: this.currentDay.getDay()
+      day: this.currentDay.getDay(),
+      current: true
     }
-    this.changeMonthForward = this.changeMonthForward.bind(this);
-    this.changeMonthBack = this.changeMonthBack.bind(this);
+    this.changeMonth = this.changeMonth.bind(this);
   }
 
   getFirstDay(month, year) {
@@ -27,25 +27,25 @@ class Calendar extends React.Component {
     return new Date(year, month+1, 0).getDate();
   }
 
-  changeMonthForward() {
-    // change the calendar forward
-    var newMonth = this.state.month + 1 > 11 ? 0 : this.state.month + 1;
-    var newYear = newMonth === 0 ? this.state.year + 1 : this.state.year;
+  changeMonth(direction) {
+    // change the calendar
+    if (direction === 'forward') {
+      var newMonth = this.state.month + 1 > 11 ? 0 : this.state.month + 1;
+      var newYear = newMonth === 0 ? this.state.year + 1 : this.state.year;
+    } else {
+      var newMonth = this.state.month - 1 < 0 ? 11 : this.state.month - 1;
+      var newYear = newMonth === 11 ? this.state.year - 1 : this.state.year;
+    }
+
+    var newCurrent = false;
+    if ((this.currentDay.getFullYear() === newYear) && (this.currentDay.getMonth() === newMonth)) {
+      newCurrent = true;
+    }
 
     this.setState({
       month: newMonth,
-      year: newYear
-    })
-  }
-
-  changeMonthBack() {
-    // change the calendar backward
-    var newMonth = this.state.month - 1 < 0 ? 11 : this.state.month - 1;
-    var newYear = newMonth === 11 ? this.state.year - 1 : this.state.year;
-
-    this.setState({
-      month: newMonth,
-      year: newYear
+      year: newYear,
+      current: newCurrent
     })
   }
 
@@ -55,11 +55,14 @@ class Calendar extends React.Component {
         <TitleBar
           month={this.state.month}
           year={this.state.year}
-          changeForward={this.changeMonthForward}
+          changeMonth={this.changeMonth}
           changeBack={this.changeMonthBack}
         />
         <DayNames />
         <DayTable
+          month={this.state.month}
+          year={this.state.year}
+          current={this.state.current}
           start={this.getFirstDay(this.state.month, this.state.year)}
           total={this.getDaysInMonth(this.state.month, this.state.year, 0)}
         />
