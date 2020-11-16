@@ -17,15 +17,6 @@ class Calendar extends React.Component {
     this.changeMonth = this.changeMonth.bind(this);
   }
 
-  getFirstDay(month, year) {
-    // returns the day (0-6) of the first day in a given month
-    return new Date(year, month).getDay();
-  }
-
-  getDaysInMonth(month, year) {
-    // returns the numbers of days in a given month
-    return new Date(year, month+1, 0).getDate();
-  }
 
   changeMonth(direction) {
     // change the calendar
@@ -56,15 +47,15 @@ class Calendar extends React.Component {
           month={this.state.month}
           year={this.state.year}
           changeMonth={this.changeMonth}
-          changeBack={this.changeMonthBack}
         />
         <DayNames />
         <DayTable
           month={this.state.month}
           year={this.state.year}
           current={this.state.current}
-          start={this.getFirstDay(this.state.month, this.state.year)}
-          total={this.getDaysInMonth(this.state.month, this.state.year, 0)}
+          view={this.props.view}
+          change={this.props.change}
+          clicked={this.props.clicked}
         />
       </div>
     )

@@ -17,17 +17,7 @@ const makeRandomReservations = () => {
           endMonth: month,
           endDay: 14,
           contains: [String(month) + String(year)],
-        });
-
-      reservations.push({
-          startYear: year,
-          startMonth: month,
-          startDay: 20,
-          endYear: year,
-          endMonth: month,
-          endDay: 22,
-          contains: [String(month) + String(year)],
-        });
+      });
     }
   }
   reservations.push(

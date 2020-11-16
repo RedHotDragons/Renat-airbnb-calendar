@@ -5,9 +5,7 @@ class DayRow extends React.Component {
     super(props);
     this.state = {
       reserved: this.props.reservedDates,
-      styledWeek: null,
-      startDay: 0,
-      endDay: 0
+      styledWeek: null
     };
 
     // styles
@@ -25,6 +23,13 @@ class DayRow extends React.Component {
       border: '1.5px solid black',
       borderRadius: '100%',
     }
+    this.highlightStyle = {
+      backgroundColor: 'lightgrey'
+    }
+
+    // initialize variables from props
+    this.checkIn = this.props.clicked.checkIn;
+    this.checkOut = this.props.clicked.checkOut;
 
     // bind
     this.styleWeek = this.styleWeek.bind(this);
@@ -32,6 +37,12 @@ class DayRow extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.handleExit = this.handleExit.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.checkIn = this.props.clicked.checkIn;
+    this.checkOut = this.props.clicked.checkOut;
+    this.styleWeek();
   }
 
   createWeek () {
@@ -48,32 +59,33 @@ class DayRow extends React.Component {
       // special case for first week
       for (let i =0; i<7; i++) {
         if (i<start) {
-          week.push({day:""});
+          week.push({day:"", month:this.props.month, year:this.props.year});
         } else {
-          week.push({day:day});
+          week.push({day:day, month:this.props.month, year:this.props.year});
           day++;
         }
       }
     } else {
       for (let i =0; i<7; i++) {
         if (day <= this.props.total) {
-          week.push({day:day});
+          week.push({day:day, month:this.props.month, year:this.props.year});
           day++;
         } else {
-          week.push({day:""});
+          week.push({day:"", month:this.props.month, year:this.props.year});
         }
       }
     }
     return week;
   }
 
-
+  datesAreEqual(obj, date) {
+    return obj.month  === date.getMonth() && obj.year===date.getFullYear() && obj.day === date.getDate()
+  }
 
   styleWeek() {
     // given the week (from createWeek()) and a list of all the days that are reserved
     // (from props), give each day the appropriate style and then return
     // an array with all the day objects
-
     const styledWeek = []
     const week = this.createWeek();
     const reserved = this.state.reserved;
@@ -83,13 +95,32 @@ class DayRow extends React.Component {
         day.style = this.disabledStyle;
         day.className = "unavailable";
       } else {
-        if (day.day === this.props.clicked.start || day.day === this.props.clicked.end) {
-          day.style = this.clickedStyle;
-        } else {
+        if (this.props.view === 'base') {
           day.style = {};
+
+        } else if (this.props.view === 'start') {
+          if (this.datesAreEqual(day,this.checkIn)) {
+            day.style = this.clickedStyle;
+          } else {
+            day.style = {};
+          }
+
+        }
+        else if (this.props.view === 'end') {
+          if (this.datesAreEqual(day,this.checkIn)) {
+            day.style = this.clickedStyle;
+          } else if (this.datesAreEqual(day,this.checkOut)) {
+            day.style = this.clickedStyle;
+          } else {
+            day.style = {};
+          }
+
         }
         day.className = "available";
       }
+
+
+
       styledWeek.push(day);
     }
     this.state.styledWeek = styledWeek;
@@ -111,9 +142,9 @@ class DayRow extends React.Component {
   handleClick (e) {
     e.preventDefault();
     if (e.target.classList.contains('available')) {
-      if (this.props.clicked.start === 0) {
+      if (this.checkIn.toString() === new Date(0,0,0).toString()) {
         this.props.handleClick(Number(e.target.innerHTML));
-      } else if (this.props.clicked.end === 0){
+      } else if (this.checkOut.toString() === new Date(0,0,0).toString()){
         this.props.handleClick(Number(e.target.innerHTML));
       }
 
@@ -122,14 +153,14 @@ class DayRow extends React.Component {
 
   handleEnter (e) {
     e.preventDefault();
-    if (e.target.classList.contains('available')&& Number(e.target.innerHTML) !== this.props.clicked.start && Number(e.target.innerHTML) !== this.props.clicked.end) {
+    if (e.target.classList.contains('available')&& Number(e.target.innerHTML) !== this.checkIn.getDate() && Number(e.target.innerHTML) !== this.checkOut.getDate()) {
       this.updateStyle(Number(e.target.innerHTML), this.hoverStyle);
     }
   }
 
   handleExit (e) {
     e.preventDefault();
-    if (e.target.classList.contains('available') && Number(e.target.innerHTML) !== this.props.clicked.start && Number(e.target.innerHTML) !== this.props.clicked.end) {
+    if (e.target.classList.contains('available') && Number(e.target.innerHTML) !== this.checkIn.getDate() && Number(e.target.innerHTML) !== this.checkOut.getDate()) {
       this.updateStyle(Number(e.target.innerHTML), {});
     }
   }
@@ -138,6 +169,7 @@ class DayRow extends React.Component {
     if (!this.state.styledWeek) {
       this.styleWeek();
     }
+    // this.styleWeek();
     return (
       <tr>
         {this.state.styledWeek.map(day =>

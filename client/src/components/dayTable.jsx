@@ -6,25 +6,41 @@ import axios from 'axios';
 class DayTable extends React.Component {
   constructor (props) {
     super(props);
-    this.currentDay = new Date();
     this.state = {
-      got: false,
+      gotFromDb: false,
       reservedDates: [],
-      startRes: 0,
-      endRes: 0
+      checkIn: 0,
+      checkOut: 0
     };
+
+    // variables
+    // the date today
+    this.currentDay = new Date();
+    // first day of the month
+    this.firstDay = new Date(this.props.year, this.props.month).getDay();
+    // total number of days in month
+    this.total = new Date(this.props.year, this.props.month+1, 0).getDate();
+
+    // bind
     this.getReservedDates = this.getReservedDates.bind(this);
     this.formatResponse = this.formatResponse.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidUpdate() {
+    this.firstDay = new Date(this.props.year, this.props.month).getDay();
+    this.total = new Date(this.props.year, this.props.month+1, 0).getDate();
+  }
+
+
+
   makeRows() {
     // return an array of objects that contain all the
     // information necessary for DayRow to be able to create
     // the correct row (week) in the calendar
-    var rowInfo = [ {day: 1, startOn: this.props.start} ];
-    var count = 8 - this.props.start;
-    while (count <= this.props.total) {
+    var rowInfo = [ {day: 1, startOn: this.firstDay} ];
+    var count = 8 - this.firstDay;
+    while (count <= this.total) {
       rowInfo.push(
         {day: count, startOn: 0}
       );
@@ -78,7 +94,7 @@ class DayTable extends React.Component {
     }
 
     this.setState({
-      got: true,
+      gotFromDb: true,
       reservedDates: reserved
     });
   }
@@ -88,16 +104,21 @@ class DayTable extends React.Component {
     return new Date(year, month+1, 0).getDate();
   }
 
+
   handleClick(day){
-    if (this.state.startRes === 0) {
-      this.setState({
-        startRes: day
-      });
-    } else if (this.state.endRes === 0){
-      this.setState({
-        endRes: day
-      });
+    console.log('clicked', day);
+    if (this.props.view === 'base') {
+      this.props.change.view('start');
+      this.props.change.checkIn(new Date(this.props.year, this.props.month,day));
+    } else if (this.props.view === 'start'){
+      this.props.change.view('end');
+      this.props.change.checkOut(new Date(this.props.year, this.props.month,day));
     }
+    // else if (this.props.view === 'end'){
+    //   this.setState({
+    //     checkOut: day
+    //   });
+    // }
 
   }
 
@@ -105,8 +126,8 @@ class DayTable extends React.Component {
 
 
   render() {
-    if (this.state.got){
-      this.state.got = false;
+    if (this.state.gotFromDb){
+      this.state.gotFromDb = false;
       return(
         <table className="day-table">
           <tbody>
@@ -114,13 +135,14 @@ class DayTable extends React.Component {
               <DayRow
                 key={info.day.toString()}
                 info={info}
-                total={this.props.total}
+                total={this.total}
                 current={this.props.current}
                 month={this.props.month}
                 year={this.props.year}
                 reservedDates={this.state.reservedDates}
                 handleClick = {this.handleClick}
-                clicked = {{start:this.state.startRes, end:this.state.endRes}}
+                clicked = {this.props.clicked}
+                view = {this.props.view}
               />)}
           </tbody>
         </table>
