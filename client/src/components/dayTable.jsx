@@ -9,9 +9,13 @@ class DayTable extends React.Component {
     this.currentDay = new Date();
     this.state = {
       got: false,
-      reservedDates: []
+      reservedDates: [],
+      startRes: 0,
+      endRes: 0
     };
     this.getReservedDates = this.getReservedDates.bind(this);
+    this.formatResponse = this.formatResponse.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   makeRows() {
@@ -29,7 +33,6 @@ class DayTable extends React.Component {
     return rowInfo;
   }
 
-
   getReservedDates() {
     // upon recieving data from database, update state to reflect that we have
     // recieved the data for this month and stores the response in the state
@@ -37,13 +40,69 @@ class DayTable extends React.Component {
     axios.get(`/reservations/${this.props.month}/${this.props.year}`)
       .then(response => {
         console.log('success');
-        this.setState({
-          got: true,
-          reservedDates: response.data
-        });
+        this.formatResponse(response.data);
       })
       .catch(err => console.log('error getting', err));
   }
+
+
+  formatResponse (responses) {
+    // given the response from the database, parse the values and store
+    // all reserved dates as day numbers in an array
+    var reserved = [];
+
+
+    for (let response of responses) {
+      var begin = response.startDay;
+      var end = response.endDay;
+      if (response.startMonth !== this.props.month) {
+        // if reservation started in previous month and ends in this month
+        begin = 1;
+      }
+      if (response.endMonth !== this.props.month) {
+        // if reservation ends in next month
+        end = this.getDaysInMonth(response.startMonth, response.startYear);
+      }
+      for (let i = begin; i <= end; i++) {
+        reserved.push(i);
+      }
+
+    }
+
+    if (this.props.current) {
+      var today = new Date;
+      var today = today.getDate();
+      for (let i = 1; i<today; i++) {
+        reserved.push(i);
+      }
+    }
+
+    this.setState({
+      got: true,
+      reservedDates: reserved
+    });
+  }
+
+  getDaysInMonth (month, year) {
+    // returns the numbers of days in a given month
+    return new Date(year, month+1, 0).getDate();
+  }
+
+  handleClick(day){
+    if (this.state.startRes === 0) {
+      this.setState({
+        startRes: day
+      });
+    } else if (this.state.endRes === 0){
+      this.setState({
+        endRes: day
+      });
+    }
+
+  }
+
+
+
 
   render() {
     if (this.state.got){
@@ -59,14 +118,16 @@ class DayTable extends React.Component {
                 current={this.props.current}
                 month={this.props.month}
                 year={this.props.year}
-                responses={this.state.reservedDates}
+                reservedDates={this.state.reservedDates}
+                handleClick = {this.handleClick}
+                clicked = {{start:this.state.startRes, end:this.state.endRes}}
               />)}
           </tbody>
         </table>
       );
     } else {
       this.getReservedDates();
-      return (<div>Loading...</div>);
+      return (<div></div>);
     }
   }
 }
