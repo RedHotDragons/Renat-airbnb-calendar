@@ -45,7 +45,7 @@ const getAll = (callback) => {
 }
 
 const getSome = (params, callback) => {
-  mongoose.connect('mongodb://localhost/calendar', {poolSize: 10});
+  mongoose.connect('mongodb://localhost/calendar', {poolSize: 100});
   dateModel.find( {month: Number(params.month), year: Number(params.year)}, (err, data) => {
     mongoose.connection.close();
     if (err) {callback(err)} else {callback(null, data);}

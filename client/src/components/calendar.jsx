@@ -161,13 +161,20 @@ class Calendar extends React.Component {
     } else {
       this.getReservedDates(this.state.month, this.state.year, this.formatResponse);
       return (
-      <div>
-        <TitleBar
+      <div className="calendar-container">
+         <TitleBar
             month={this.state.month}
             year={this.state.year}
             changeMonth={this.changeMonth}
           />
           <DayNames />
+          <table>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </table>
       </div>);
     }
   }

@@ -11,7 +11,8 @@ class DayRow extends React.Component {
     // styles
     this.disabledStyle = {
       color: 'rgb(177,177,177)',
-      textDecoration: 'line-through'
+      textDecoration: 'line-through',
+      fontWeight: '400px'
     };
     this.clickedStyle = {
       border: '1px solid black',
@@ -20,7 +21,7 @@ class DayRow extends React.Component {
       backgroundColor: 'rgb(34,34,34)',
     };
     this.hoverStyle = {
-      border: '1.5px solid rgb(34,34,34)',
+      border: '1px solid rgb(34,34,34)',
       borderRadius: '100%',
     }
     this.highlightStyle = {
@@ -193,7 +194,13 @@ class DayRow extends React.Component {
   handleEnter (e) {
     e.preventDefault();
     if (e.target.classList.contains('available')) {
-      this.updateStyle(Number(e.target.innerHTML), this.hoverStyle);
+      if (this.props.view === 'start') {
+        for (let i = this.checkIn.getDate() + 1; i<=Number(e.target.innerHTML); i++ ) {
+          this.updateStyle(i, this.highlightStyle);
+        }
+      } else {
+        this.updateStyle(Number(e.target.innerHTML), this.hoverStyle);
+      }
     }
   }
 

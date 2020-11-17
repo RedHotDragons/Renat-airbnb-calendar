@@ -10,8 +10,8 @@ var Footer = (props) => {
   }
 
   return(
-    <div>
-      <button onClick={handleClick}>Clear Dates</button>
+    <div className="footer">
+      <button className="clear-button" onClick={handleClick}>Clear dates</button>
     </div>
   )
 }
