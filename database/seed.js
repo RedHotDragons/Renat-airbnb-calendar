@@ -9,40 +9,15 @@ const makeRandomReservations = () => {
 
   for (let year of years) {
     for (let month of months) {
-      reservations.push({
-          startYear: year,
-          startMonth: month,
-          startDay: 7,
-          endYear: year,
-          endMonth: month,
-          endDay: 14,
-          contains: [String(month) + String(year)],
-      });
+      for (let day = 8; day < 16; day++) {
+        reservations.push({
+            year: year,
+            month: month,
+            day: day,
+        });
+      }
     }
   }
-  reservations.push(
-    {
-      startYear: 2020,
-      startMonth: 11,
-      startDay: 29,
-      endYear: 2021,
-      endMonth: 0,
-      endDay: 4,
-      contains: ["112020", "02021"]
-    }
-  );
-
-  reservations.push(
-    {
-      startYear: 2022,
-      startMonth: 0,
-      startDay: 29,
-      endYear: 2022,
-      endMonth: 6,
-      endDay: 4,
-      contains: ["02022", "12022", "22022", "32022", "42022", "52022", "62022"]
-    }
-  );
   return reservations;
 };
 

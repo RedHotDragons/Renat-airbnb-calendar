@@ -35,6 +35,8 @@ class TitleBar extends React.Component {
     var today = new Date;
     if (today.getMonth() === this.props.month && today.getFullYear() === this.props.year) {
       this.state.disabled = true;
+    } else {
+      this.state.disabled = false;
     }
   }
 

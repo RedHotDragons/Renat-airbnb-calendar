@@ -5,7 +5,7 @@ class DayRow extends React.Component {
     super(props);
     this.state = {
       reserved: this.props.reservedDates,
-      styledWeek: null
+      styledWeek: null,
     };
 
     // styles
@@ -17,10 +17,10 @@ class DayRow extends React.Component {
       border: '1px solid black',
       borderRadius: '100%',
       color: 'white',
-      backgroundColor: 'black',
+      backgroundColor: 'rgb(34,34,34)',
     };
     this.hoverStyle = {
-      border: '1.5px solid black',
+      border: '1.5px solid rgb(34,34,34)',
       borderRadius: '100%',
     }
     this.highlightStyle = {
@@ -82,49 +82,88 @@ class DayRow extends React.Component {
     return obj.month  === date.getMonth() && obj.year===date.getFullYear() && obj.day === date.getDate()
   }
 
-  styleWeek() {
-    // given the week (from createWeek()) and a list of all the days that are reserved
-    // (from props), give each day the appropriate style and then return
-    // an array with all the day objects
-    const styledWeek = []
-    const week = this.createWeek();
-    const reserved = this.state.reserved;
+
+  styleWeekStart(week, reserved) {
+    const styledWeek = [];
+    for (let day of week) {
+      var date = new Date(day.year, day.month, day.day);
+
+      if (this.props.closest && date >= this.props.closest) {
+        day.style = this.disabledStyle;
+        day.className = "unavailable";
+
+      } else if (this.datesAreEqual(day,this.checkIn)) {
+        day.style = this.clickedStyle;
+        day.className = "check-in";
+
+      } else if(reserved.includes(day.day) || date < this.checkIn) {
+        day.style = this.disabledStyle;
+        day.className = "unavailable";
+      } else {
+        day.style = {};
+        day.className = "available";
+      }
+      styledWeek.push(day);
+    }
+    return styledWeek;
+  }
+
+  styleWeekBase(week, reserved) {
+    const styledWeek = [];
 
     for (let day of week) {
       if (reserved.includes(day.day)) {
         day.style = this.disabledStyle;
         day.className = "unavailable";
       } else {
-        if (this.props.view === 'base') {
-          day.style = {};
-
-        } else if (this.props.view === 'start') {
-          if (this.datesAreEqual(day,this.checkIn)) {
-            day.style = this.clickedStyle;
-          } else {
-            day.style = {};
-          }
-
-        }
-        else if (this.props.view === 'end') {
-          if (this.datesAreEqual(day,this.checkIn)) {
-            day.style = this.clickedStyle;
-          } else if (this.datesAreEqual(day,this.checkOut)) {
-            day.style = this.clickedStyle;
-          } else {
-            day.style = {};
-          }
-
-        }
+        day.style = {};
         day.className = "available";
       }
-
-
-
       styledWeek.push(day);
     }
+    return styledWeek;
+  }
+
+  styleWeekEnd(week, reserved) {
+    const styledWeek = [];
+
+    for (let day of week) {
+      if (reserved.includes(day.day)) {
+        day.style = this.disabledStyle;
+        day.className = "unavailable";
+      } else if (this.datesAreEqual(day,this.checkIn)) {
+        day.style = this.clickedStyle;
+        day.className = "check-in";
+      } else if (this.datesAreEqual(day,this.checkOut)) {
+        day.style = this.clickedStyle;
+        day.className = "check-out";
+      } else {
+        day.style = {};
+        day.className = "available";
+      }
+      styledWeek.push(day);
+    }
+    return styledWeek;
+  }
+
+  styleWeek() {
+    // given the week (from createWeek()) and a list of all the days that are reserved
+    // (from props), give each day the appropriate style and then return
+    // an array with all the day objects
+    var styledWeek = []
+    const week = this.createWeek();
+    const reserved = this.state.reserved;
+    if (this.props.view === 'base') {
+      styledWeek = this.styleWeekBase(week, reserved);
+    } else if (this.props.view === 'start') {
+      styledWeek =this.styleWeekStart(week, reserved);
+    } else if (this.props.view === 'end') {
+      styledWeek =this.styleWeekEnd(week, reserved);
+    }
+
     this.state.styledWeek = styledWeek;
   }
+
 
   updateStyle (clickedDay, style){
     for (let day of this.state.styledWeek) {
@@ -153,14 +192,14 @@ class DayRow extends React.Component {
 
   handleEnter (e) {
     e.preventDefault();
-    if (e.target.classList.contains('available')&& Number(e.target.innerHTML) !== this.checkIn.getDate() && Number(e.target.innerHTML) !== this.checkOut.getDate()) {
+    if (e.target.classList.contains('available')) {
       this.updateStyle(Number(e.target.innerHTML), this.hoverStyle);
     }
   }
 
   handleExit (e) {
     e.preventDefault();
-    if (e.target.classList.contains('available') && Number(e.target.innerHTML) !== this.checkIn.getDate() && Number(e.target.innerHTML) !== this.checkOut.getDate()) {
+    if (e.target.classList.contains('available')) {
       this.updateStyle(Number(e.target.innerHTML), {});
     }
   }
@@ -169,7 +208,6 @@ class DayRow extends React.Component {
     if (!this.state.styledWeek) {
       this.styleWeek();
     }
-    // this.styleWeek();
     return (
       <tr>
         {this.state.styledWeek.map(day =>
@@ -185,10 +223,6 @@ class DayRow extends React.Component {
       </tr>
     );
   }
-
-
-
-
 }
 
 export default DayRow;
