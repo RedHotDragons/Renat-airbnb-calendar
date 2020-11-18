@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Price from './priceHeader.jsx';
-import Dates from './dates.jsx';
-import Guests from './guests.jsx';
 import Submit from './submit.jsx';
+import Form from './form.jsx'
 
 class BookingForm extends React.Component {
   constructor(props) {
@@ -12,11 +11,12 @@ class BookingForm extends React.Component {
 
   render(){
     return (
-      <div className="booking-form-container">
-        <Price />
-        <Dates />
-        <Guests />
-        <Submit />
+      <div className="booking-form-outer-container">
+        <div className="booking-form-inner-container">
+          <Price />
+          <Form />
+          <Submit />
+        </div>
       </div>
     );
   }

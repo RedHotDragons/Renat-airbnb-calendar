@@ -1,5 +1,5 @@
 html {
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   color: rgb(34,34,34);
 }
 
@@ -12,32 +12,32 @@ html {
 }
 
 .mini-header {
-  color: rgb(113,113,113) !important;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-  font-weight: 400 !important;
-  font-size: 14px !important;
-  line-height: 18px !important;
-  max-height: 36px !important;
-  height: 36px !important;
+  color: rgb(113,113,113);
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  max-height: 36px;
+  height: 36px;
 }
 
 .main-header {
-  color: rgb(34, 34, 34) !important;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-  font-weight: 600 !important;
-  font-size: 22px !important;
-  line-height: 26px !important;
+  color: rgb(34, 34, 34);
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
   padding: 0px;
   margin: 0px;
 }
 
 h2 {
-  color: inherit !important;
-  font-size: 1em !important;
-  font-weight: inherit !important;
-  line-height: inherit !important;
-  margin: 0px !important;
-  padding: 0px !important;
+  color: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
 }
 
 .calendar-container {
@@ -184,42 +184,221 @@ td {
   position: relative;
 }
 
-.booking-form-container {
-  padding: 5px;
-  margin: 15px;
+.booking-form-outer-container {
+  padding: 24px;
+  margin: 5px;
   border: 1.5px solid rgb(221,221,221);
   border-radius: 12px;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   color: rgb(34,34,34);
-  width: 308px;
+  width: 208px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 }
 
+
+.booking-form-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
 .price-container{
-  margin:5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 5px;
+  align-items: baseline;
+}
+
+.price {
+  color: rgb(34, 34, 34);
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  white-space: nowrap;
+  padding-left: 4px;
+
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.review {
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  white-space: nowrap;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  border: 1.5px solid rgb(221,221,221);
+
+  /* margin: 0px;
+  border: none transparent;
+  color: rgb(34, 34, 34);
+  background-color: transparent;
+  border-radius: 0px;
+  box-shadow: none;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  outline: 0px; */
+
 }
 
 .dates-container{
-  margin:5px;
-  padding: 5px;
-  border: 1.5px solid rgb(221,221,221);
-  border-radius: 12px;
+  display:flex;
+  justify-content: space-around;
+  border-bottom: 1.5px solid rgb(221,221,221);
+  /* border-radius: 12px; */
+  width: 100%;
+  flex: 1 1 0%;
+}
+
+.reviewsStar {
+  color: #FF385C;
+  font-size: 15px;
+}
+
+.date-checkin-container {
+  /* position: abolute; */
+  flex: 1 1 0%;
+  padding: 0px;
+  width: 100%;
+}
+
+.dates-checkin{
+  position: relative;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  margin: 0px;
+  padding: 0px;
+  pointer-events: none;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date-checkout-container {
+  flex: 1 1 0%;
+  padding: 0px;
+  width: 100%;
+  border-left: 1px solid rgb(176, 176, 176);
+}
+
+.dates-checkout {
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  pointer-events: none;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dates-add-date{
+  height: 30%;
+  width: 100%;
+  border: none;
+  outline: none;
+  margin: 0px;
+  padding: 26px 12px 10px;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  appearance: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(113, 113, 113);
 }
 
 .guests-container{
-  margin:5px;
-  padding: 5px;
-  border: 1.5px solid rgb(221,221,221);
+  /* border: 1.5px solid rgb(221,221,221); */
   border-radius: 12px;
+  display:flex;
+  flex-direction: row;
+
 }
 
-.submit-container{
-  margin:5px;
-  padding: 5px;
+.guests-selector {
+  position: relative;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 50%;
+  min-width: 36px;
+  padding-right: 12px;
+  pointer-events: none;
+  color: rgb(34, 34, 34);
 }
 
+/* .submit-container{
+} */
+
+.submit-button{
+  background: var(--dls19-brand-gradient, linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%));
+
+  cursor: pointer;
+  display: inline-block;
+  margin: 0px;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  border-radius: 8px;
+  outline: none;
+  padding: 14px 24px;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+  border: none;
+  background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+  color: rgb(255, 255, 255);
+  width: 100%;
+  padding: 14px 24px;
+  box-sizing: border-box;
+
+}
+
+.submit-text {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  box-sizing: border-box;
+}
 
 
