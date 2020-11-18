@@ -183,3 +183,43 @@ td {
   display: block;
   position: relative;
 }
+
+.booking-form-container {
+  padding: 5px;
+  margin: 15px;
+  border: 1.5px solid rgb(221,221,221);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(34,34,34);
+  width: 308px;
+}
+
+.price-container{
+  margin:5px;
+  padding: 5px;
+}
+
+.dates-container{
+  margin:5px;
+  padding: 5px;
+  border: 1.5px solid rgb(221,221,221);
+  border-radius: 12px;
+}
+
+.guests-container{
+  margin:5px;
+  padding: 5px;
+  border: 1.5px solid rgb(221,221,221);
+  border-radius: 12px;
+}
+
+.submit-container{
+  margin:5px;
+  padding: 5px;
+}
+
+
+

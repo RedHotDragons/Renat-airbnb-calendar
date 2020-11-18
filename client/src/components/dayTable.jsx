@@ -289,7 +289,7 @@ class DayTable extends React.Component {
         if (dayObj.className === 'available') {
 
           if (dayObj.day === current) {
-            this.updateStyle(dayObj.day, this.hoverStyle);
+            this.updateStyle(dayObj.day, this.hoverStyle, this.highlightStyle);
           }
           else if (new Date(dayObj.year, dayObj.month, dayObj.day) > this.checkIn.getDate()){
             if (dayObj.day < current) {

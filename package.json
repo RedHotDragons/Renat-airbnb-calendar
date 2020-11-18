@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.14",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-modal": "^3.11.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.12.1",

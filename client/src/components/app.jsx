@@ -3,7 +3,7 @@ import React from 'react';
 import Headers from '../components/headers.jsx';
 import Calendar from '../components/calendar.jsx';
 import Footer from '../components/footer.jsx';
-
+import BookingForm from './sidebar/bookingForm.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,6 +73,7 @@ class App extends React.Component {
         <Footer
           change={{view:this.changeView, checkIn:this.changeCheckIn, checkOut:this.changeCheckOut}}
         />
+        <BookingForm />
       </div>
     );
   }
