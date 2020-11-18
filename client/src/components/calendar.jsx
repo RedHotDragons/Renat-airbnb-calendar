@@ -5,6 +5,7 @@ import TitleBar from './calTitleBar.jsx';
 import DayTable from './dayTable.jsx';
 import axios from 'axios';
 
+
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -135,7 +136,6 @@ class Calendar extends React.Component {
 
 
   render() {
-    // console.log(this.state);
     if (this.state.gotFromDb){
       this.state.gotFromDb = false;
       return(
@@ -169,11 +169,13 @@ class Calendar extends React.Component {
           />
           <DayNames />
           <table>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tbody>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              </tbody>
           </table>
       </div>);
     }

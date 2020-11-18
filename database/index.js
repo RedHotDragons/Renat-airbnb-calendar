@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/calendar',  {poolSize: 10});
 
 // Schema
 
@@ -17,7 +18,7 @@ const dateModel = mongoose.model('datemodels', dateSchema);
 
 // Given an array of objects, save all objects to database
 const saveMany = (reservations, callback) => {
-  mongoose.connect('mongodb://localhost/calendar');
+
 
   mongoose.connection.dropCollection('datemodels', (err) => {
     if (err) {
@@ -27,27 +28,21 @@ const saveMany = (reservations, callback) => {
 
   dateModel.create(reservations)
     .then((data) => {
-      mongoose.connection.close();
       callback(null, data)
     })
     .catch((error) => {
-      mongoose.connection.close();
       callback(error)
     });
 };
 
 const getAll = (callback) => {
-  mongoose.connect('mongodb://localhost/calendar');
   dateModel.find((err, data) => {
-    mongoose.connection.close();
     if (err) {callback(err)} else {callback(null, data);}
   });
 }
 
 const getSome = (params, callback) => {
-  mongoose.connect('mongodb://localhost/calendar', {poolSize: 100});
   dateModel.find( {month: Number(params.month), year: Number(params.year)}, (err, data) => {
-    mongoose.connection.close();
     if (err) {callback(err)} else {callback(null, data);}
   });
 }

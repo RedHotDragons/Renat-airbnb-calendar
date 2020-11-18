@@ -9,7 +9,8 @@
     "start": "nodemon ./server/server.js",
     "build": "webpack -d --watch",
     "bundle": "npm run build & npm run start",
-    "seed": "node ./database/seed.js"
+    "seed": "node ./database/seed.js",
+    "test": "jest --config ./jest.config.js"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -22,12 +23,15 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/runtime": "^7.12.5",
     "babel-core": "^6.23.1",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^6.3.2",
     "babel-plugin-react": "^1.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.6",
+    "react-test-renderer": "^17.0.1",
     "webpack": "^2.2.1"
   }
 }
