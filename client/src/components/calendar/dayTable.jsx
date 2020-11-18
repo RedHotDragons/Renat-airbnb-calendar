@@ -105,14 +105,12 @@ class DayTable extends React.Component {
   createMonth(rowInfo) {
     // return an array composed of arrays. Each inner array is a week.
     // each week contains 7 objects describing the day, month, year.
-    console.log('rowInfo', rowInfo);
     var month = [];
     var week = [];
     for (let row of rowInfo) {
       week = this.createWeek(row);
       month.push(week)
     }
-    console.log('unstyled', month);
     return month;
   }
 
@@ -238,11 +236,9 @@ class DayTable extends React.Component {
     var rowInfo = this.makeRows();
     var unstyledMonth = this.createMonth(rowInfo);
     var styledMonth = this.styleMonth(unstyledMonth);
-    console.log('MOTHHHTH', styledMonth);
     this.setState({
       month: styledMonth
     });
-    // this.state.month = styledMonth;
   }
 
   datesAreEqual(obj, date) {

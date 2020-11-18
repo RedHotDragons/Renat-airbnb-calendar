@@ -93,27 +93,22 @@ class Calendar extends React.Component {
   /////////// -------------------------------------///////////////////
 
   getClosestReserved () {
-    console.log('props',this.props.clicked);
     var newClosest = this.closest;
     if (!newClosest) {
-      console.log('no closest');
 
       if (this.state.month === this.props.clicked.checkIn.getMonth() && this.state.year === this.props.clicked.checkIn.getFullYear()) {
-        console.log('this month');
         // if in same month as check in day
         for (let day of this.state.reservedDates.slice().sort((a, b) => {return a - b;})) {
 
           if (day > this.props.clicked.checkIn.getDate()) {
             newClosest = new Date(this.state.year, this.state.month, day);
             this.props.change.closest(newClosest);
-            console.log('found', newClosest);
             break;
           }
         }
       }
 
       else {
-        console.log('no closest, different month');
         if (this.difference(this.props.clicked.checkIn, new Date(this.state.year, this.state.month, 5)) > 0) {
           if (this.state.reservedDates.length !== 0) {
             newClosest = new Date(this.state.year, this.state.month, this.state.reservedDates.slice().sort((a, b) => {return a - b;})[0])

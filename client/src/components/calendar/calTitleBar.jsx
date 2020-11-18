@@ -1,7 +1,7 @@
 import React from 'react';
 
-import rightArrow from '../images/right-arrow.js';
-import leftArrow from '../images/left-arrow.js';
+import rightArrow from '../../images/right-arrow.js';
+import leftArrow from '../../images/left-arrow.js';
 
 class TitleBar extends React.Component {
   constructor (props) {
