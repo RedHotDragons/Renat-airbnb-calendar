@@ -1,5 +1,8 @@
 import React from 'react';
 
+import keyboard from '../images/keyboard.js';
+import KeyboardButton from './keyboardButton.jsx';
+
 var Footer = (props) => {
 
   var handleClick = (e) => {
@@ -9,8 +12,10 @@ var Footer = (props) => {
     props.change.checkOut(new Date(0,0,0))
   }
 
+
   return(
     <div className="footer">
+      <KeyboardButton />
       <button className="clear-button" onClick={handleClick}>Clear dates</button>
     </div>
   )
@@ -18,3 +23,6 @@ var Footer = (props) => {
 
 
 export default Footer;
+
+{/* <button className='keyboard-button' onClick={handleShow}>{keyboard.keyboard.keyboard}</button> */}
+

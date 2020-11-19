@@ -1,7 +1,7 @@
 import React from 'react';
 
-import rightArrow from '../../images/right-arrow.js';
-import leftArrow from '../../images/left-arrow.js';
+import rightArrow from '../images/right-arrow.js';
+import leftArrow from '../images/left-arrow.js';
 
 class TitleBar extends React.Component {
   constructor (props) {
@@ -45,18 +45,18 @@ class TitleBar extends React.Component {
     if (this.state.disabled) {
       return(
         <div className="title-bar-container">
-          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.leftArrow.disabledArrow}</button>
+          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.disabledArrow}</button>
           {this.getMonth()} {this.props.year}
-      <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.rightArrow.arrow}</button>
+      <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.arrow}</button>
         </div>
       );
 
     } else {
       return(
         <div className="title-bar-container">
-          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.leftArrow.arrow}</button>
+          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.arrow}</button>
           {this.getMonth()} {this.props.year}
-      <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.rightArrow.arrow}</button>
+      <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.arrow}</button>
         </div>
       );
     }

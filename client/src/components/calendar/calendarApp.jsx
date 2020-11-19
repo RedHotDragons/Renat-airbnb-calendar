@@ -55,7 +55,7 @@ class CalendarApp extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="whole-calendar-container">
         <Headers
           view={this.state.view}
           checkIn={this.state.checkIn}

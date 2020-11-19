@@ -3,6 +3,15 @@ html {
   color: rgb(34,34,34);
 }
 
+.whole-container {
+  display:flex;
+  justify-content: space-around;
+}
+
+.whole-calendar-container{
+  width: 40%;
+}
+
 
 .header-container {
   padding: 0px;
@@ -44,7 +53,6 @@ h2 {
   display: flex;
   flex-direction: column;
   /* border: 1px solid black; */
-  width: 65%;
   height: auto;
 
 }
@@ -167,7 +175,7 @@ td {
 }
 
 .clear-button:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(247, 247, 247);
   color: black;
 }
 
@@ -180,21 +188,111 @@ td {
 }
 
 .footer {
-  display: block;
+  display: flex;
   position: relative;
+  justify-content: space-between;
+  width:65%;
+  margin-left: 15px;
 }
+.keyboard-button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  border-width: 2px;
+  width: 40px;
+  height:40px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.keyboard-button:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.keyboard-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.keyboard-button:active {
+  transform: scale(0.96);
+}
+
+.keyboard-list {
+  list-style: none;
+  margin:48px 0px 32px;
+  padding:0px;
+  color: rgb(34,34,34);
+}
+
+.keyboard-list-item {
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.keyboard-list-span {
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgb(247, 247, 247);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position:fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius:8px;
+  padding: 40px 32px 32px;
+  max-width:40%;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
 
 .booking-form-outer-container {
   padding: 24px;
   margin: 5px;
   border: 1.5px solid rgb(221,221,221);
   border-radius: 12px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   color: rgb(34,34,34);
-  width: 208px;
+  height: 60%;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 }
 
@@ -247,18 +345,6 @@ td {
   font-size: 16px;
   line-height: 20px;
   border: 1.5px solid rgb(221,221,221);
-
-  /* margin: 0px;
-  border: none transparent;
-  color: rgb(34, 34, 34);
-  background-color: transparent;
-  border-radius: 0px;
-  box-shadow: none;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  outline: 0px; */
-
 }
 
 .dates-container{
@@ -276,18 +362,23 @@ td {
 }
 
 .date-checkin-container {
-  /* position: abolute; */
+  /* position: absolute; */
   flex: 1 1 0%;
   padding: 0px;
   width: 100%;
+  /* position:relative; */
+  display:flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: flex-start;
 }
 
 .dates-checkin{
-  position: relative;
+  /* position: fixed;
   top: 12px;
   left: 12px;
-  right: 12px;
-  margin: 0px;
+  right: 12px; */
+  /* margin: 0px; */
   padding: 0px;
   pointer-events: none;
   font-size: 10px;
@@ -298,6 +389,7 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 5px 0px 0px 5px;
 }
 
 .date-checkout-container {
@@ -305,13 +397,15 @@ td {
   padding: 0px;
   width: 100%;
   border-left: 1px solid rgb(176, 176, 176);
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .dates-checkout {
   top: 12px;
   left: 12px;
   right: 12px;
-  position: relative;
   width: 100%;
   overflow: hidden;
   margin: 0px;
@@ -325,6 +419,7 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 5px 0px 0px 5px;
 }
 
 .dates-add-date{
@@ -333,7 +428,7 @@ td {
   border: none;
   outline: none;
   margin: 0px;
-  padding: 26px 12px 10px;
+  padding: 6px 6px 5px;
   background-color: transparent;
   font-size: 14px;
   font-weight: 400;
@@ -355,7 +450,6 @@ td {
 }
 
 .guests-selector {
-  position: relative;
   right: 0px;
   display: flex;
   align-items: center;
@@ -376,7 +470,6 @@ td {
   cursor: pointer;
   display: inline-block;
   margin: 0px;
-  position: relative;
   text-align: center;
   touch-action: manipulation;
   border-radius: 8px;
