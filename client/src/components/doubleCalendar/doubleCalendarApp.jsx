@@ -5,8 +5,18 @@ import Calendar from './doubleCalendar.jsx';
 import Footer from '../calendar/footer.jsx';
 
 class DoubleCalendarApp extends React.Component {
+  // renders two months next to each other
+  // renders different headers and titlebar from the
+  // single view calendar component
+
+  // this view is rendered in the calendar modal from the booking form
+  // should also be rendered instead of the single view if the page size
+  // is big enough **fix**
+
   constructor(props) {
     super(props);
+
+    // initialize current day, left month and right month
     this.currentDay = new Date();
     this.leftMonth = new Date();
     this.rightMonth = new Date();
@@ -31,12 +41,15 @@ class DoubleCalendarApp extends React.Component {
       }
     };
 
+    // bind
     this.changeView = this.changeView.bind(this);
     this.changeCheckIn = this.changeCheckIn.bind(this);
     this.changeCheckOut = this.changeCheckOut.bind(this);
     this.changeClosest = this.changeClosest.bind(this);
     this.changeMonth = this.changeMonth.bind(this);
   }
+
+
   // possible views:
   // base, start(check in day selected), end (check out day selected)
   changeView(view) {

@@ -23,14 +23,16 @@ class GuestModal extends React.Component {
       total: this.state.total + amount,
       plusDisabled: plus
     });
+    this.props.getTotal(this.state.total + amount);
 
   }
+
 
   render() {
     const showHideClassName = this.props.show ? "guest-modal display-block" : "guest-modal display-none";
     return (
-      <div className={showHideClassName}>
-        <section className="guest-modal-main">
+      <div onClick={this.props.handleClose} className={showHideClassName}>
+        <section onClick={(e)=>{e.stopPropagation()}} className="guest-modal-main">
           <div className="guest-modal-description-container">
             <div className="guest-modal-description">
               Adults

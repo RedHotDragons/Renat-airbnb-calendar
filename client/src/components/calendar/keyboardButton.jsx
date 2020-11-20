@@ -3,6 +3,7 @@ import keyboard from '../images/keyboard.js';
 import KeyboardModal from '../modals/keyboardModal.jsx';
 
 class KeyboardButton extends React.Component {
+  // renders a modal when the button is clicked
   constructor(props) {
     super(props);
     this.state  = {

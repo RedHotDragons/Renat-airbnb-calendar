@@ -4,6 +4,9 @@ import rightArrow from '../images/right-arrow.js';
 import leftArrow from '../images/left-arrow.js';
 
 class TitleBar extends React.Component {
+  // diplays only a left arrow for the left month
+  // and only a right arrow for the right month
+
   constructor (props) {
     super(props);
     this.state = {

@@ -1,8 +1,12 @@
 import React from 'react';
 import DayRow from './dayRow.jsx';
-import axios from 'axios';
 
 class DayTable extends React.Component {
+  // Creates a month (this.state.month) which is an array of nested arrays of objects
+  // each object represents a day with a day number and a style
+  // each nested array represents a week and must always have 7 day objects
+  // The month array is then given to the DayRow component week by week. DayRow creates
+  // the week to be rendered
   constructor (props) {
     super(props);
     this.state = {
@@ -145,6 +149,7 @@ class DayTable extends React.Component {
 
 
   styleWeekBase(week, reserved) {
+    // days are either available or reserved (reserved dates are stored in the database)
     const styledWeek = [];
 
     for (let day of week) {
@@ -166,6 +171,9 @@ class DayTable extends React.Component {
   }
 
   styleWeekStart(week, reserved) {
+    // The clicked on day is styled, the days between the clicked on day and the
+    // closest reserved date are available. Everything before the check-in date and
+    // after the closest reserved date is unavailable
     const styledWeek = [];
     for (let day of week) {
       var date = new Date(day.year, day.month, day.day);
@@ -196,6 +204,8 @@ class DayTable extends React.Component {
   }
 
   dateInBetween(obj, date1, date2) {
+    // determines whether a day object represents a date that is inbetween
+    // the two given dates
     let day = new Date(obj.year, obj.month, obj.day);
     if (day > date1 && day < date2) {
       return true;
@@ -204,6 +214,9 @@ class DayTable extends React.Component {
   }
 
   styleWeekEnd(week, reserved) {
+    // The check-in day and checkout day are styled, the days between the checkin day
+    // and the checkout day are highlighted. Reserved dates are the only ones that are
+    // unavailable
     const styledWeek = [];
 
     for (let day of week) {
@@ -233,6 +246,7 @@ class DayTable extends React.Component {
 
 
   createFinalMonth(){
+    // store the styled month in state
     var rowInfo = this.makeRows();
     var unstyledMonth = this.createMonth(rowInfo);
     var styledMonth = this.styleMonth(unstyledMonth);
@@ -246,6 +260,8 @@ class DayTable extends React.Component {
   }
 
   updateStyle (clickedDay, style){
+    // update the style of the given day. Can be given
+    // multiple style objects
     let args = [...arguments]
     args = args.slice(1);
     style = Object.assign({}, ...args);
@@ -263,6 +279,8 @@ class DayTable extends React.Component {
   }
 
   handleClick(day){
+    // clicking on a day changes the view and styles
+    // Have not implemented clicks while in the end view. ******fix*******
     console.log('clicked', day);
     if (this.props.view === 'base') {
       this.props.change.checkIn(new Date(this.props.year, this.props.month,day));
@@ -280,6 +298,9 @@ class DayTable extends React.Component {
   }
 
   startHandleEnter(current) {
+    // highlights the days in between checkin date and hover position
+    // only works in single month view and needs to be fixed to work in double
+    // month view *****fix*******
     for (let week of this.state.month) {
       for (let dayObj of week) {
         if (dayObj.className === 'available') {
@@ -295,7 +316,6 @@ class DayTable extends React.Component {
             }
           }
         }
-
       }
     }
   }

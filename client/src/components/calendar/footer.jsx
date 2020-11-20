@@ -4,6 +4,10 @@ import keyboard from '../images/keyboard.js';
 import KeyboardButton from './keyboardButton.jsx';
 
 var Footer = (props) => {
+  // render two buttons
+  // clear dates returns to the base view
+  // keyboard displays a modal with keyboard information
+  // keyboard functionality has not been implemented yet **fix**
 
   var handleClick = (e) => {
     e.preventDefault();
@@ -23,6 +27,4 @@ var Footer = (props) => {
 
 
 export default Footer;
-
-{/* <button className='keyboard-button' onClick={handleShow}>{keyboard.keyboard.keyboard}</button> */}
 
