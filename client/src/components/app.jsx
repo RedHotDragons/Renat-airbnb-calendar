@@ -1,16 +1,28 @@
 import React from 'react';
 
-import Headers from './headers.jsx';
-import Calendar from './calendar.jsx';
+import CalendarApp from './calendar/CalendarApp.jsx';
+import BookingForm from './sidebar/bookingForm.jsx';
+
+import DoubleCalendarApp from './doubleCalendar/doubleCalendarApp.jsx';
+
+class App extends React.Component {
 
 
-var App = () => {
-  return (
-    <div>
-      <Headers />
-      <Calendar />
-    </div>
-  )
-};
+  render () {
+    return (
+      <div className="whole-container">
+        <CalendarApp />
+        <BookingForm />
+      </div>
+    );
+  }
+}
 
 export default App;
+
+
+// return (
+//   <div className="whole-container">
+//     <DoubleCalendarApp />
+//   </div>
+// );

@@ -4,32 +4,18 @@ const db = require('./index.js');
 // make an array of objects to populate database for testing
 const makeRandomReservations = () => {
   let reservations = [];
-  const years = [2018, 2019, 2020, 2021, 2022];
+  const years = [2020, 2021];
   const months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   for (let year of years) {
     for (let month of months) {
-      reservations.push(
-        {
-          startYear: year,
-          startMonth: month,
-          startDay: 1,
-          endYear: year,
-          endMonth: month,
-          endDay: 6,
-        }
-      );
-
-      reservations.push(
-        {
-          startYear: year,
-          startMonth: month,
-          startDay: 12,
-          endYear: year,
-          endMonth: month,
-          endDay: 22,
-        }
-      );
+      for (let day = 8; day < 16; day++) {
+        reservations.push({
+            year: year,
+            month: month,
+            day: day,
+        });
+      }
     }
   }
   return reservations;

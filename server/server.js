@@ -19,15 +19,18 @@ app.get('/reservations', (req,res)=>{
   });
 });
 
-// send a post request to /seed to seed the database with random data
-app.post('/seed', (req, res) => {
-  console.log('posting seed');
-  models.seed((err) => {
-  if (err) {res.sendStatus(500)} else {
-    res.sendStatus(200);
-  }
+// get dates from database with the given month and year
+app.get('/reservations/:month/:year', (req, res) => {
+  models.getSome(req.params, (err, data)=>{
+    if (err) {
+      console.log('error getting some', err);
+      res.sendStatus(501);
+    } else {
+      res.send(data);
+    }
   });
 });
+
 
 // start server
 const port = 3000;
