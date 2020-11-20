@@ -42,23 +42,32 @@ class TitleBar extends React.Component {
 
   render () {
     this.setLeftArrowDisabled();
-    if (this.state.disabled) {
-      return(
-        <div className="title-bar-container">
-          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.disabledArrow}</button>
-          {this.getMonth()} {this.props.year}
-          <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.arrow}</button>
-        </div>
-      );
 
+    if (this.props.side === 'left') {
+      if (this.state.disabled) {
+        return(
+          <div style={{justifyContent:"flex-start"}} className="title-bar-container">
+            <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.disabledArrow}</button>
+            {this.getMonth()} {this.props.year}
+          </div>
+        );
+
+      } else {
+        return(
+          <div style={{justifyContent:"flex-start"}} className="title-bar-container">
+            <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.arrow}</button>
+            {this.getMonth()} {this.props.year}
+          </div>
+        );
+      }
     } else {
-      return(
-        <div className="title-bar-container">
-          <button id="back" disabled={this.state.disabled} className="arrow-button" onClick={this.handleBack}>{leftArrow.arrow}</button>
+      return (
+        <div style={{justifyContent:"flex-end"}} className="title-bar-container">
           {this.getMonth()} {this.props.year}
           <button id="forward" className="arrow-button" onClick={this.handleForward}>{rightArrow.arrow}</button>
         </div>
-      );
+
+      )
     }
   }
 }

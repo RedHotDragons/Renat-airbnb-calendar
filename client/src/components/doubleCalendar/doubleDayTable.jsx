@@ -1,5 +1,5 @@
 import React from 'react';
-import DayRow from './dayRow.jsx';
+import DayRow from './doubleDayRow.jsx';
 import axios from 'axios';
 
 class DayTable extends React.Component {

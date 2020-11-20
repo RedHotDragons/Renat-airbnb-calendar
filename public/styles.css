@@ -1,8 +1,13 @@
+/* body styles */
 html {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   color: rgb(34,34,34);
 }
 
+
+
+
+/* ---------- main single calendar view ----------------------------------------------*/
 .whole-container {
   display:flex;
   justify-content: space-around;
@@ -12,17 +17,14 @@ html {
   width: 40%;
 }
 
-
 .header-container {
   padding: 0px;
   display: block;
   align-content: flex-start;
-
 }
 
 .mini-header {
   color: rgb(113,113,113);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -32,7 +34,6 @@ html {
 
 .main-header {
   color: rgb(34, 34, 34);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   font-weight: 600;
   font-size: 22px;
   line-height: 26px;
@@ -52,9 +53,7 @@ h2 {
 .calendar-container {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid black; */
   height: auto;
-
 }
 
 .day-name-container {
@@ -66,7 +65,6 @@ h2 {
   /* height: 10%; */
   margin-left: 1px;
   margin-right: 1px;
-
 }
 
 li {
@@ -88,7 +86,6 @@ li {
   margin-bottom: 5px;
 }
 
-
 .title-bar-container {
   display: flex;
   justify-content: space-between;
@@ -96,6 +93,7 @@ li {
   font-weight: 600;
   align-items: center;
 }
+
 
 table {
   display: grid;
@@ -191,7 +189,6 @@ td {
   display: flex;
   position: relative;
   justify-content: space-between;
-  width:65%;
   margin-left: 15px;
 }
 .keyboard-button{
@@ -246,6 +243,39 @@ td {
   padding: 4px 8px;
 }
 
+
+
+
+
+
+
+
+/*--------------- Double Calendar View ----------------------------------------------*/
+.single-calendar-container {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  height: auto;
+  margin: 10px;
+  font-size: 10px;
+  width: 50%;
+}
+
+.double-calendar-container {
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+/* --------------------Modal Styles ----------------------------------------------*/
 .modal {
   position: fixed;
   top: 0;
@@ -276,15 +306,77 @@ td {
   display: none;
 }
 
+.guest-modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0); */
+}
+
+.guest-modal-main {
+  position:fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top:45%;
+  left:66%;
+  transform: translate(-50%,-50%);
+  border-radius:8px;
+  padding: 17px 26px 26px;
+  max-width:37%;
+  border: 1px solid rgb(207, 207, 207);
+}
+
+.calendar-modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0); */
+}
+
+.calendar-modal-main {
+  position:fixed;
+  background: white;
+  width: 100%;
+  height: auto;
+  top:45%;
+  left:57%;
+  transform: translate(-50%,-50%);
+  border-radius:13px;
+  padding: 17px 26px 26px;
+  max-width:60%;
+  min-width:50%;
+  border: 1px solid rgb(207, 207, 207);
+}
+
+.modal-close-button {
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  font-size: 13px;
+  float: right;
+  padding:10px;
+  cursor: pointer;
+}
+
+
+.modal-close-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+.modal-close-button:active {
+  transform: scale(0.96);
+}
 
 
 
 
 
-
-
-
-
+/* --------------Booking Form Styles  ----------------------------------------------*/
 
 .booking-form-outer-container {
   padding: 24px;
@@ -446,7 +538,6 @@ td {
   border-radius: 12px;
   display:flex;
   flex-direction: row;
-
 }
 
 .guests-selector {
@@ -459,7 +550,48 @@ td {
   padding-right: 12px;
   pointer-events: none;
   color: rgb(34, 34, 34);
+  cursor: pointer;
 }
+.guest-modal-description-container {
+  margin-bottom: 24px;
+  margin-top: 24px;
+  display: flex;
+}
+.guest-modal-description {
+  font-size: 16px;
+  line-height: 20px;
+  padding-bottom: 4px;
+  font-weight: 600;
+  flex: 1 1 0%;
+  display:flex;
+  flex-direction: column;
+  width:70%
+}
+
+.guest-modal-button {
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(176, 176, 176);
+  color: rgb(113, 113, 113);
+  font-family: inherit;
+  outline: none;
+  touch-action: manipulation;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+
 
 /* .submit-container{
 } */
@@ -493,5 +625,4 @@ td {
   color: rgb(255, 255, 255);
   box-sizing: border-box;
 }
-
 
