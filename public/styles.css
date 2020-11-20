@@ -336,13 +336,14 @@ td {
   position:fixed;
   background: white;
   height: auto;
-  top:45%;
-  left:50%;
+  top:49%;
+  left:43%;
   transform: translate(-50%,-50%);
   border-radius:13px;
   padding: 17px 26px 26px;
-  width:661px;
-  border: 1px solid rgb(207, 207, 207);
+  width:600px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px;
+  margin-left: 8.33333%
 }
 
 .modal-close-button {

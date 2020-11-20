@@ -9,9 +9,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+
+
 // get all dates from database
-app.get('/reservations', (req,res)=>{
-  console.log('getting reservations');
+app.get('/api/calendar/reservations', (req,res)=>{
   models.getAll((err, data) => {
     if (err) {res.sendStatus(500)} else {
       res.send(data);
@@ -20,7 +21,7 @@ app.get('/reservations', (req,res)=>{
 });
 
 // get dates from database with the given month and year
-app.get('/reservations/:month/:year', (req, res) => {
+app.get('/api/calendar/reservations/:month/:year', (req, res) => {
   models.getSome(req.params, (err, data)=>{
     if (err) {
       console.log('error getting some', err);
@@ -33,7 +34,7 @@ app.get('/reservations/:month/:year', (req, res) => {
 
 
 // start server
-const port = 3000;
+const port = 3002;
 app.listen(port, () => {
   console.log ('Listening on port', port, '...');
 });
