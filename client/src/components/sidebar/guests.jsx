@@ -6,10 +6,12 @@ class Guests extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      total: 1
     }
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.getTotal = this.getTotal.bind(this);
   }
 
   showModal(e) {
@@ -22,10 +24,18 @@ class Guests extends React.Component {
 
   hideModal(e) {
     e.preventDefault();
+    e.stopPropagation();
     this.setState({
       show: false
     });
     console.log('hide', this.state);
+  }
+
+  getTotal(total) {
+    this.setState({
+      total: total
+    });
+
   }
 
 
@@ -35,6 +45,7 @@ class Guests extends React.Component {
         <GuestModal
           handleClose={this.hideModal}
           show={this.state.show}
+          getTotal={this.getTotal}
         />
         <div onClick={this.showModal} className="guests-container">
           <div className="date-checkin-container">
@@ -42,7 +53,7 @@ class Guests extends React.Component {
               GUESTS
             </div>
             <div className='dates-add-date'>
-              1 guest
+              {this.state.total + ' guests'}
             </div>
           </div>
 

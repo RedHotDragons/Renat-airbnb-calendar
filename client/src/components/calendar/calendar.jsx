@@ -7,6 +7,9 @@ import axios from 'axios';
 
 
 class Calendar extends React.Component {
+  // renders the actual calendar. Shows one month at a time (this.state.month)
+  // Will get the dates that have been previously reserved from the database and
+  // store them in this.state.reservedDates
   constructor(props) {
     super(props);
     this.currentDay = new Date();
@@ -29,7 +32,7 @@ class Calendar extends React.Component {
 
 
   changeMonth(direction) {
-    // change the calendar
+    // change the month
     if (direction === 'forward') {
       var newMonth = this.state.month + 1 > 11 ? 0 : this.state.month + 1;
       var newYear = newMonth === 0 ? this.state.year + 1 : this.state.year;
@@ -50,9 +53,6 @@ class Calendar extends React.Component {
     })
   }
 
-
-
-  ////// DAYTABLE STUFF------------------------------///////////////////
 
   getReservedDates(month, year, callback) {
     // upon recieving data from database, update state to reflect that we have
@@ -85,19 +85,22 @@ class Calendar extends React.Component {
   }
 
   difference(date1, date2) {
+    // return the difference in days between two date objects
     var Difference_In_Time = date2.getTime() - date1.getTime();
     return Difference_In_Time / (1000 * 3600 * 24);
   }
 
 
-  /////////// -------------------------------------///////////////////
 
   getClosestReserved () {
+    // gets the next closest reserved date from a given checkin
+    // date. This helps when rendering the start view where only the available days from
+    // a selected date are displayed as available
     var newClosest = this.closest;
     if (!newClosest) {
 
       if (this.state.month === this.props.clicked.checkIn.getMonth() && this.state.year === this.props.clicked.checkIn.getFullYear()) {
-        // if in same month as check in day
+        // if in same month as check-in day
         for (let day of this.state.reservedDates.slice().sort((a, b) => {return a - b;})) {
 
           if (day > this.props.clicked.checkIn.getDate()) {
@@ -117,17 +120,13 @@ class Calendar extends React.Component {
         }
       }
     }
-
     return newClosest;
-
   }
 
 
   componentDidUpdate() {
     this.closest = this.props.clicked.closest;
   }
-
-
 
 
   render() {
@@ -154,6 +153,9 @@ class Calendar extends React.Component {
         </div>
       )
     } else {
+      // if we have not yet recieved data from the database, make the call to the server
+      // return an empty table, this helps keep all other components in place when
+      // transitioning between months.
       this.getReservedDates(this.state.month, this.state.year, this.formatResponse);
       return (
       <div className="calendar-container">

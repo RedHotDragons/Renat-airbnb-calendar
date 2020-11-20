@@ -2,11 +2,13 @@ import React from 'react';
 
 import DayNames from '../calendar/calDayNames.jsx';
 import TitleBar from './doubleTitleBar.jsx';
-import DayTable from './doubleDayTable.jsx';
+import DayTable from '../calendar/dayTable.jsx';
 import axios from 'axios';
 
 
 class Calendar extends React.Component {
+  // same as single view calendar but renders a different
+  // calendar component and different title bar
   constructor(props) {
     super(props);
     this.currentDay = new Date();
@@ -29,9 +31,6 @@ class Calendar extends React.Component {
     this.props.change.month(direction);
   }
 
-
-
-  ////// DAYTABLE STUFF------------------------------///////////////////
 
   getReservedDates(month, year, callback) {
     // upon recieving data from database, update state to reflect that we have
@@ -68,8 +67,6 @@ class Calendar extends React.Component {
     return Difference_In_Time / (1000 * 3600 * 24);
   }
 
-
-  /////////// -------------------------------------///////////////////
 
   getClosestReserved () {
     var newClosest = this.closest;

@@ -4,6 +4,7 @@ import rightArrow from '../images/right-arrow.js';
 import leftArrow from '../images/left-arrow.js';
 
 class TitleBar extends React.Component {
+  // Renders the Month and Year as well as buttons to change the month
   constructor (props) {
     super(props);
     this.state = {
@@ -14,6 +15,7 @@ class TitleBar extends React.Component {
   }
 
   getMonth() {
+    // get string representation of month
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November', 'December']
     return months[this.props.month];
   }

@@ -5,6 +5,12 @@ import Calendar from './calendar.jsx';
 import Footer from './footer.jsx';
 
 class CalendarApp extends React.Component {
+  // renders headers (Select check in), calendar, and footer(keyboard and clear dates)
+  // stores the current view, selected checkin and checkout dats
+
+  // this.state.closest stores the next closest reserved date from a given checkin
+  // date. This helps when rendering the check in view where only the available days from
+  // a selected date are displayed as available
   constructor(props) {
     super(props);
     this.state = {

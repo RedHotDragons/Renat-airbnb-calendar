@@ -3,10 +3,10 @@ import React from 'react';
 import CalendarApp from './calendar/CalendarApp.jsx';
 import BookingForm from './sidebar/bookingForm.jsx';
 
-import DoubleCalendarApp from './doubleCalendar/doubleCalendarApp.jsx';
+// import DoubleCalendarApp from './doubleCalendar/doubleCalendarApp.jsx';
 
 class App extends React.Component {
-
+  // renders entire application
 
   render () {
     return (
