@@ -36,7 +36,7 @@ class Calendar extends React.Component {
     // upon recieving data from database, update state to reflect that we have
     // recieved the data for this month and stores the response in the state
 
-    axios.get(`/reservations/${month}/${year}`)
+    axios.get(`/api/calendar/reservations/${month}/${year}`)
       .then(response => {
         console.log('success');
         callback(response.data);
@@ -102,6 +102,7 @@ class Calendar extends React.Component {
   componentDidUpdate() {
     this.closest = this.props.clicked.closest;
   }
+
 
 
 

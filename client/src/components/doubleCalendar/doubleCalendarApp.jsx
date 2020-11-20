@@ -86,6 +86,7 @@ class DoubleCalendarApp extends React.Component {
 
 
 
+
   changeMonth(direction) {
     // change the calendar
     if (direction === 'forward') {
