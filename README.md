@@ -1,25 +1,8 @@
 ## Server API
 
-### Get information from database regarding a specific event, so we can update the calendar to show it is booked for a specific listing on the UI
-  * GET `/api/calendar/reservations/:eventId`
+### Get information from database regarding a specific Listing, so we can update the calendar to show it is booked for all events from that listing
+### pass the listing id to middle ware function that will query the event ID's in the events array of the Listing, and return all the event's information
 
-  **Path Parameters:**
-  * `eventId` the primary key of the event we are retrieving from database
-
-**Success Status Code:** `200`
-
-**Returns:** JSON
-
-```json
-    {
-      "year": "Number",
-      "month": "Number",
-      "dateStart": "Date",
-      "dateEnd": "Date",
-      "listingId" : "Number"
-    }
-```
-### Get information from database regarding a specific listing, so we can display it on the page for users to choose
   * GET `/api/calendar/reservations/:listingId`
 
   **Path Parameters:**
@@ -29,24 +12,27 @@
 
 **Returns:** JSON
 
-```json
+```json [
     {
+      "year": "Number",
+      "month": "Number",
+      "dayStart": "Date",
+      "dayEnd": "Date",
       "Address": "String",
-      "room": "Number",
-      "guests": "Number",
     }
+    ]
 ```
 
+### Add a event with a listing from the front end to the database by passing the month, year, days and address. It will add this event to the events array in the listing.
 
-### Add a event with a listing from the front end to the database by passing the month, year, days and address
-  * POST `/api/calendar/reservations/:month/:year/:dayStart/:listingId/:dayEnd/`
+  * POST `/api/calendar/reservations/:month/:year/:dayStart/:dayEnd/:listingId`
 
 **Path Parameters:**
   * `month` month to query for
   * `year` year to query for
   * `dayStart` day to query for
-  * `dayEnd` listing to query for
-  * `listingId` day to query for
+  * `dayEnd` day end to query for
+  * `listingId` listingId to query for
 
 
 **Success Status Code:** `200`
@@ -63,8 +49,8 @@
     }
 ```
 
-### Update event info if a user changes their event information or changes their listing for a specific event
-  * PATCH `/api/calendar/reservations/update/:eventId`
+### Update event info if a user changes their event information
+  * PATCH `/api/calendar/reservations/update/:year/:month/:dayStart/:dayEnd/:listingId`
 
 **Success Status Code:** `201`
 
