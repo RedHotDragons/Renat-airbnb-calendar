@@ -1,6 +1,6 @@
 ## Server API
 
-### Get information from database regarding a specific Listing, so we can update the calendar to show it is booked for all events from that listing, we pass the listing id to a middleware function that will query the event ID's in the events array of the Listing, and return all the event's information
+### Get information from database regarding a specific Listing, so we can update the calendar to show it is booked for all reservations from that listing, we pass the listing id to a middleware function that will query the reservation ID's in the reservations array of the Listing, and return all the reservation's information
 
   * GET `/listings/:listingId`
 
@@ -18,22 +18,19 @@
       "month": "Number",
       "dayStart": "Date",
       "dayEnd": "Date",
-      "address": "String",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number"
     }
     ]
 ```
 
-### Add a reservation with a listing from the front end to the database by passing the month, year, days and address. It will store this information to the reservation table an add this reservation to the reservations array in the listing.
+### Add a reservation with a listing from the front end to the database by passing the month, year, days, adults, children, infants, listingId. It will store this information to the reservation table and then add this reservation to the reservations array in the listing.
 
-  * POST `/api/calendar/reservations/:listingId/:year/:month/:dayStart/:dayEnd/`
+  * POST `/listings/:listingId/reservation`
 
 **Path Parameters:**
-  * `month` month to query for
-  * `year` year to query for
-  * `dayStart` day to query for
-  * `dayEnd` day end to query for
   * `listingId` listingId to query for
-
 
 **Success Status Code:** `201`
 
@@ -45,12 +42,15 @@
       "month": "Number",
       "dayStart": "Date",
       "dayEnd": "Date",
-      "listingId": "Number"
+      "listingId": "Number",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number"
     }
 ```
 
-### Update event info if a user changes their event information
-  * PATCH `/api/calendar/reservations/update/:year/:month/:dayStart/:dayEnd/:listingId`
+### Update reservation info if a user changes their reservation information
+  * PATCH `/reservations/update/reservation/:reservationId`
 
 **Success Status Code:** `201`
 
@@ -62,11 +62,17 @@
       "month": "Number",
       "dayStart": "Date",
       "dayEnd": "Date",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number",
       "listingId": "Number"
     }
 ```
 ### Update listing info
-  * PATCH `/api/calendar/reservations/update/:listingId`
+  * PATCH `/listings/update/:listingId`
+
+**Path Parameters:**
+  * `listingId` listingId to query for
 
 **Success Status Code:** `201`
 
@@ -80,14 +86,14 @@
     }
 ```
 
-### Delete event if a user wants to delete there event from the database
-  * DELETE `/api/calendar/reservations/delete/:eventId`
+### Delete reservation if a user wants to delete there reservation from the database, this should delete the reservation from the listings reservation array
+  * DELETE `/reservations/delete/:reservationId`
 
 **Success Status Code:** `200`
 
 
-### Delete listing if a user wants to delete there listing from the database
-  * DELETE `/api/calendar/reservations/delete/:listingId`
+### Delete listing if a user wants to delete there listing from the database, this should delete the listingId Foreign key from all related reservations
+  * DELETE `/listings/delete/:listingId`
 
 **Success Status Code:** `200`
 
