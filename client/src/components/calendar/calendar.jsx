@@ -29,8 +29,25 @@ class Calendar extends React.Component {
     this.getReservedDates = this.getReservedDates.bind(this);
     this.formatResponse = this.formatResponse.bind(this);
   }
+  componentDidMount() {
+    axios.post('/api/calendar/reservations/9/1997').then((response) => {
+      console.log('response', response);
+    }).catch((error) => {
+      console.log('error is', error);
+    });
 
+    axios.patch('/api/calendar/reservations/update').then((response) => {
+      console.log('updated', response);
+    }).catch((error) => {
+      console.log('error is', error);
+    });
 
+    axios.delete('/api/calendar/reservations/delete').then((response) => {
+      console.log('deleted', response);
+    }).catch((error) => {
+      console.error('error is', error);
+    })
+  }
   changeMonth(direction) {
     // change the month
     if (direction === 'forward') {

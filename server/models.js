@@ -14,12 +14,34 @@ const getAll = (callback) => {
 const getSome = (params, callback) => {
   db.getSome( params, (err, data)=>{
     if (err) {callback(err);} else {
-      callback(null, data);;
+      callback(null, data);
     }
   });
 }
 
+const getMonthOne = (callback) => {
+  db.getMonthOne((err,data) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(null, data);
+    }
+  })
+}
+
+const updateEntry = (params, callback) => {
+  db.updateEntry(params, (err, data) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(null, data);
+    }
+  })
+}
+
 module.exports = {
   getAll,
-  getSome
+  getSome,
+  getMonthOne,
+  updateEntry
 };

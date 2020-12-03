@@ -19,7 +19,6 @@ const dateModel = mongoose.model('datemodels', dateSchema);
 // Given an array of objects, save all objects to database
 const saveMany = (reservations, callback) => {
 
-
   mongoose.connection.dropCollection('datemodels', (err) => {
     if (err) {
       console.log('error dropping', err);
@@ -47,8 +46,50 @@ const getSome = (params, callback) => {
   });
 }
 
+const getMonthOne = (callback) => {
+  dateModel.find({month: 1}, (err, data) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(null, data);
+    }
+  });
+};
+
+// Post request
+
+const newEntry = (params, callback) => {
+  dateModel.create({year : Number(params.year), month: Number(params.month), day: 4}).then((data) => {
+    callback(null,data);
+  }).catch((err) => {
+    callback(err);
+  })
+}
+
+// patch request
+
+const updateEntry = (callBack) => {
+  dateModel.updateOne({year: 1997}, {day: 18}).then((data) => {
+    callBack(null, data);
+  }).catch((err) => {
+    callBack(err);
+  })
+}
+
+const deleteEntry = (callBack) => {
+  dateModel.deleteOne({year: 1997, day: 18}).then((data) => {
+    callBack(null, data);
+  }).catch((err) => {
+    callBack(err);
+  })
+}
+
 module.exports = {
   saveMany,
   getAll,
-  getSome
+  getSome,
+  getMonthOne,
+  newEntry,
+  updateEntry,
+  deleteEntry
 };
