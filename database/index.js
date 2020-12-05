@@ -8,17 +8,18 @@ mongoose.connect('mongodb://localhost/calendar', {useNewUrlParser: true}, {useUn
 // ex. ["92020", "102020"] means that month 9 of 2020 and month 10 of 2020
 //     have days that will be reserved
 
-const listingSchema = mongoose.Schema({
+const listingSchema = new mongoose.Schema({
   address: {type: String},
-  reservations: [{
-  year: { type: Number },
-  month: { type: Number },
-  dayStart: { type: Number },
-  dayEnd: { type: Number },
-  adults: {type: Number},
-  children: {type: Number},
-  infants: {type: Number},
-  }],
+  reservations: [ {
+    year: { type: Number },
+    month: { type: Number },
+    dayStart: { type: Number },
+    dayEnd: { type: Number },
+    adults: {type: Number},
+    children: {type: Number},
+    infants: {type: Number}
+    }
+    ],
   room: {type: String, enum : ["entire place", "private room", "shared room"] }
 });
 
@@ -48,7 +49,7 @@ const listingModel = mongoose.model('listingmodels', listingSchema);
 // Given an array of objects, save all objects to database
 const saveMany = (listing, callBack) => {
 
-  mongoose.connection.dropCollection('listingModel', (err) => {
+  mongoose.connection.dropCollection('listingmodels', (err) => {
     if(err) {
       console.log('error dropping listingModel');
     }
