@@ -29,8 +29,9 @@ class Calendar extends React.Component {
     this.getReservedDates = this.getReservedDates.bind(this);
     this.formatResponse = this.formatResponse.bind(this);
   }
+  componentDidMount() {
 
-
+  }
   changeMonth(direction) {
     // change the month
     if (direction === 'forward') {

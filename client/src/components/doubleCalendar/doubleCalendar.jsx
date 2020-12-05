@@ -18,8 +18,6 @@ class Calendar extends React.Component {
     }
 
     this.closest = this.props.clicked.closest;
-
-
     this.changeMonth = this.changeMonth.bind(this);
     this.getReservedDates = this.getReservedDates.bind(this);
     this.formatResponse = this.formatResponse.bind(this);
