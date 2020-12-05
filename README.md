@@ -1,6 +1,6 @@
-## Server API
+## Server API for PostgresDB implementation, will scale for MongoDB as well.
 
-### Get information from database regarding a specific Listing, so we can update the calendar to show it is booked for all reservations from that listing, we pass the listing id to a middleware function that will query the reservation ID's in the reservations array of the Listing, and return all the reservation's information
+### Get information from database regarding a specific Listing, so we can update the calendar to show it is booked for all reservations from that listing, we pass the listing id to a middleware function that will query the reservation ID's with a foreign key of one listing, and return all the reservation's information
 
   * GET `/listings/:listingId`
 
@@ -80,7 +80,7 @@
 
 ```json
     {
-      "Address": "String",
+      "address": "String",
       "room": "String",
       "guests": "Number",
     }
