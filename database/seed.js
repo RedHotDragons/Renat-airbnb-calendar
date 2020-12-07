@@ -59,38 +59,6 @@ populate((err, data)=>{
 }
 });
 
-// To write to a CSV file
-
-const writeListings = fs.createWriteStream('listings.csv')
-writeListings.write('address,reservations,room\n', 'utf8');
-
-function writeTenMillionListings(writer, encoding, callback) {
-  let i = 1000;
-  function write() {
-    let ok = true;
-    do {
-      i -= 1;
-      const address = faker.address.streetAddress();
-      const reservations = makeRandomReservation();
-      const room = faker.random.arrayElement(["entire place", "private room", "shared room"]);
-      const data = `${address},${[reservations]},${room}\n`;
-      if (i === 0) {
-        writer.write(data, encoding, callback);
-      } else {
-// see if we should continue, or wait
-// don't pass the callback, because we're not done yet.
-        ok = writer.write(data, encoding);
-      }
-    } while (i > 0 && ok);
-    if (i > 0) {
-// had to stop early!
-// write some more once it drains
-      writer.once('drain', write);
-    }
-  }
-write()
-}
-
 
 // JSON
 

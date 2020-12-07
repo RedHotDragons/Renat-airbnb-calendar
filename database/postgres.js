@@ -6,7 +6,15 @@ const client = new Client({
   password: 'rootpass',
   port: 5432,
 })
-client.connect()
+client.connect();
+
+const saveListing = (data, callBack) => {
+client.query("SELECT NOW()", (err, data) => {
+
+})
+}
 
 
+module.exports = {
 
+}
