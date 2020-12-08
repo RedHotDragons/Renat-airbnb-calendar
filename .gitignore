@@ -1,5 +1,8 @@
 ## Mac OSX ##
 .DS_Store
+listings.json
+listings.csv
+reservations.csv
 
 ## NPM ##
 node_modules/

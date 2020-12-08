@@ -80,8 +80,7 @@ const writeReservations= fs.createWriteStream('../reservations.csv')
 writeReservations.write('reservationId,dayStart,dayEnd,year,month, adults, children, infants,listingId\n', 'utf8');
 
 function writeTenMillionReservations(writer, encoding, callback) {
-  let i = 30000000;
-  var listingId = 1;
+  let i = 100000000;
   var reservationId = 1;
   function write() {
     let ok = true;
@@ -94,23 +93,14 @@ function writeTenMillionReservations(writer, encoding, callback) {
         let adults = faker.random.number({'min': 1, 'max': 3});
         let children = faker.random.number({'min': 1, 'max': 2});
         let infants = faker.random.number({'min': 1, 'max': 10});
+        let listingId = faker.random.number({'min': 1, 'max': 10000000})
       const data = `${reservationId},${dayStart},${dayEnd},${year},${month},${adults},${children},${infants},${listingId}\n`;
       if (i === 0) {
-        if(listingId !== 10000000) {
-        listingId += 1;
-        } else {
-         listingId = 1;
-        }
         reservationId += 1;
         writer.write(data, encoding, callback);
       } else {
 // see if we should continue, or wait
 // don't pass the callback, because we're not done yet.
-        if(listingId !== 10000000) {
-        listingId += 1;
-        } else {
-          listingId = 1;
-        }
         reservationId += 1;
         ok = writer.write(data, encoding);
       }

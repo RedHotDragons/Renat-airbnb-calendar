@@ -4,6 +4,8 @@ const path = require('path');
 
 const models = require('./models.js');
 const db = require('../database/index.js');
+const postgresDb = require('../database/postgres.js');
+
 
 // middleware
 app.use(express.static(path.join(__dirname, '../public')));

@@ -8,13 +8,18 @@ const client = new Client({
 })
 client.connect();
 
-const saveListing = (data, callBack) => {
-client.query("SELECT NOW()", (err, data) => {
-
-})
+const getReservations = (data, callBack) => {
+client.query(`select reservationId from reservation inner join listing on reservation.listingId = listing.listingId where listing.listingId = ${data.id};`, (err, data) => {
+  if(err) {
+    callBack(err)
+  } else {
+    callBack(null, data);
+  }
+});
 }
 
 
 module.exports = {
+  getReservations
 
 }

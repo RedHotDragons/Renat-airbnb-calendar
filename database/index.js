@@ -75,13 +75,12 @@ const getSome = (params, callback) => {
   });
 }
 
-const getMonthOne = (callback) => {
-  dateModel.find({month: 1}, (err, data) => {
-    if(err) {
-      callback(err);
-    } else {
-      callback(null, data);
-    }
+const getMonthOne = (data,callback) => {
+ listingModel.findOne({'listingId': data.id }, 'reservation', function (err, person) {
+    if (err) return handleError(err);
+    // Prints "Space Ghost is a talk show host".
+    console.log('%s %s is a %s.', person.name.first, person.name.last,
+      person.occupation);
   });
 };
 
