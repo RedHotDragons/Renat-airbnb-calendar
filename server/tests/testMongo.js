@@ -5,24 +5,21 @@ const postgresDB = require('../../database/postgres.js');
 const faker = require('faker');
 var expect = require('chai').expect;
 
-// 1st query for Postgres
+//2nd query for MongoDB
 var id = faker.random.number({'min': 1, 'max': 10000000})
 var newObj = {"id": id}
-var time1Postgres = performance.now();
-postgresDB.getReservations(newObj,(err, data) => {
+var time1Mongo = performance.now();
+mongoDB.getReservations(newObj,(err, data) => {
   if(err) {
     console.log('error return reservations', err);
   } else {
-    console.log('reservations got from PostgresDB');
+    console.log('reservations got from MongoDB', data);
   }
 })
-var time2Postgres = performance.now();
-    describe('testing query for all reservations in a listing POSTGRESDB', function() {
+var time2Mongo = performance.now();
+    describe('testing query for all reservations in a listing MONGODB', function() {
         it('should return all the reservations in a specific listing under 50ms', function() {
-            expect(time2Postgres - time1Postgres).to.be.lt(.5);
+            expect(time2Mongo - time1Mongo).to.be.lt(.5);
         });
     });
-console.log('get reservations query for postgresdb done in', time2Postgres - time1Postgres, 'seconds');
-
-
-
+console.log('get reservations query for mongodb done in',time2Mongo - time1Mongo, 'seconds');

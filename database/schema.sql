@@ -21,6 +21,8 @@ CREATE TABLE reservation (
     listingId       integer,
     FOREIGN KEY (listingId) REFERENCES listing (listingId)
 );
+CREATE INDEX idx_listing_id
+ON reservation(listingId);
 
 COPY listing
 FROM '/Users/renatnorderhaug/Desktop/SDC/airbnb-calendar/listings.csv'

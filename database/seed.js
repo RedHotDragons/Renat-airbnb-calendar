@@ -62,20 +62,28 @@ populate((err, data)=>{
 
 // JSON
 
-const writeFileListings = fs.createWriteStream('listings.json', { flags: 'r+', start: 1})
+const writeFileListings = fs.createWriteStream('../listings.json', { flags: 'r+', start: 1})
 
 var writeTenMillionJsonListings = (writer, encoding, callBack) => {
-    let i = 10000000;
+    let i = 100000000;
+    let reservationId = 1;
     function write() {
         let ok = true;
         // var newArray = [];
         do {
         const address = faker.address.streetAddress();
-        const reservations = makeRandomReservation();
         const room = faker.random.arrayElement(["entire place", "private room", "shared room"]);
         var newObj = {
+          listingId: faker.random.number({'min': 1, 'max': 10000000}),
+          reservationId: reservationId,
+          "year": faker.random.number({'min': 1997, 'max': 2020}),
+          "month" : faker.random.number({'min': 1, 'max': 12}),
+          "dayStart" : faker.random.number({'min': 1, 'max': 17}),
+          "dayEnd"  : faker.random.number({'min': 18, 'max': 31}),
+          "adults" :faker.random.number({'min': 1, 'max': 3}),
+          "children" : faker.random.number({'min': 1, 'max': 2}),
+          "infants" : faker.random.number({'min': 1, 'max': 10}),
           address: address,
-          reservations: reservations,
           room: room
         }
         i--;
@@ -83,11 +91,13 @@ var writeTenMillionJsonListings = (writer, encoding, callBack) => {
         // console.log('NEW ARRAY WITH OBJ', newArray);
         var newJson = JSON.stringify(newObj) + ','
         if (i === 0) {
+          reservationId++;
           writer.write(JSON.stringify(newObj) + ']', encoding, callBack);
         } else {
+          reservationId++;
           // see if we should continue, or wait
           // don't pass the callback, because we're not done yet.
-            ok = writer.write(newJson, encoding);
+          ok = writer.write(newJson, encoding);
         }
         } while (i > 0 && ok);
           if (i > 0) {
@@ -117,11 +127,6 @@ writeTenMillionJsonListings(writeFileListings, 'utf-8', () => {
 //   }
 // });
 
-
-writeTenMillionListings(writeListings, 'utf-8', () => {
-  console.log('writing listings!');
-  writeListings.end();
-});
 
 
 

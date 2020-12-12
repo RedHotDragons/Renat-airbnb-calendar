@@ -36,8 +36,8 @@ class Calendar extends React.Component {
 
     axios.get(`/api/calendar/reservations/${month}/${year}`)
       .then(response => {
-        console.log('success');
-        callback(response.data);
+        console.log('success', response.data);
+        callback(response.data.rows);
       })
       .catch(err => console.log('error getting', err));
   }
@@ -45,7 +45,7 @@ class Calendar extends React.Component {
   formatResponse(responses) {
     var reserved = [];
     for (let obj of responses) {
-      reserved.push(obj.day);
+      reserved.push(obj.dayStart);
     }
 
     this.setState({
