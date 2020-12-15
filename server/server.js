@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const mongoDb = require('../database/index.js');
 const postgresDb = require('../database/postgres.js');
+const newrelic = require('newrelic');
 
 
 // middleware
@@ -16,21 +17,18 @@ postgresDb.getDays(req.params, (err, data) => {
   if(err) {
     console.log('error getting days');
   } else {
-    console.log('days successfully retrieved from database');
     res.send(data);
   }
 });
 });
 
-
-// get dates from database with the given month and year
+// get dates from database with the given listingId
 app.get('/api/calendar/listings/:id', (req, res) => {
 postgresDb.getReservations(req.params, (err, data)=>{
     if (err) {
       console.log('error getting some', err);
       res.sendStatus(501);
     } else {
-      console.log('successfuly got', data);
       res.send(data);
     }
   });
