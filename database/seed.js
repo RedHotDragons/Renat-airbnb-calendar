@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 const db = require('./index.js');
 const fs = require('fs');
+const jsonData = require('../listings.json');
 
 const makeRandomListings = () => {
   let listings = [];
@@ -12,7 +13,6 @@ const makeRandomListings = () => {
   listing.room = faker.random.arrayElement(["entire place", "private room", "shared room"]);
   listings.push(listing);
   }
-  // console.log('reservations', Array.isArray(listings[0].reservation[0]));
   return listings;
 }
 
@@ -59,42 +59,74 @@ populate((err, data)=>{
 }
 });
 
-// To write to a CSV file
 
-const writeListings = fs.createWriteStream('listings.csv')
-writeListings.write('address,reservations,room\n', 'utf8');
+// JSON
 
-function writeTenMillionListings(writer, encoding, callback) {
-  let i = 10000000;
-  function write() {
-    let ok = true;
-    do {
-      i -= 1;
-      const address = faker.address.streetAddress();
-      const reservations = makeRandomReservation();
-      const room = faker.random.arrayElement(["entire place", "private room", "shared room"]);
-      const data = `${address},${...reservations},${room}\n`;
-      if (i === 0) {
-        writer.write(data, encoding, callback);
-      } else {
-// see if we should continue, or wait
-// don't pass the callback, because we're not done yet.
-        ok = writer.write(data, encoding);
-      }
-    } while (i > 0 && ok);
-    if (i > 0) {
-// had to stop early!
-// write some more once it drains
-      writer.once('drain', write);
+const writeFileListings = fs.createWriteStream('../listings.json', { flags: 'r+', start: 1})
+
+var writeTenMillionJsonListings = (writer, encoding, callBack) => {
+    let i = 100000000;
+    let reservationId = 1;
+    function write() {
+        let ok = true;
+        // var newArray = [];
+        do {
+        const address = faker.address.streetAddress();
+        const room = faker.random.arrayElement(["entire place", "private room", "shared room"]);
+        var newObj = {
+          listingId: faker.random.number({'min': 1, 'max': 10000000}),
+          reservationId: reservationId,
+          "year": faker.random.number({'min': 1997, 'max': 2020}),
+          "month" : faker.random.number({'min': 1, 'max': 12}),
+          "dayStart" : faker.random.number({'min': 1, 'max': 17}),
+          "dayEnd"  : faker.random.number({'min': 18, 'max': 31}),
+          "adults" :faker.random.number({'min': 1, 'max': 3}),
+          "children" : faker.random.number({'min': 1, 'max': 2}),
+          "infants" : faker.random.number({'min': 1, 'max': 10}),
+          address: address,
+          room: room
+        }
+        i--;
+        // newArray.push(newObj);
+        // console.log('NEW ARRAY WITH OBJ', newArray);
+        var newJson = JSON.stringify(newObj) + ','
+        if (i === 0) {
+          reservationId++;
+          writer.write(JSON.stringify(newObj) + ']', encoding, callBack);
+        } else {
+          reservationId++;
+          // see if we should continue, or wait
+          // don't pass the callback, because we're not done yet.
+          ok = writer.write(newJson, encoding);
+        }
+        } while (i > 0 && ok);
+          if (i > 0) {
+        // had to stop early!
+        // write some more once it drains
+          writer.once('drain', write);
+        }
     }
-  }
-write()
+    write();
 }
 
-writeTenMillionListings(writeListings, 'utf-8', () => {
-  console.log('writing listings!');
-  writeListings.end();
+writeTenMillionJsonListings(writeFileListings, 'utf-8', () => {
+  console.log('writing JSON listings!');
+  writeFileListings.end();
 });
+
+// var dataToWrite = writeTenMillionJsonListings();
+
+
+
+
+// fs.writeFile("listings.json", dataToWrite, (err,data) => {
+//   if(err) {
+//     console.log('error');
+//   } else {
+//     console.log('wrote to listings');
+//   }
+// });
+
 
 
 

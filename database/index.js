@@ -2,60 +2,36 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/calendar', {useNewUrlParser: true}, {useUnifiedTopology: true});
 
 // Schema
-
-// contains is an array of strings specifying all the months
-// that are in this reservation
-// ex. ["92020", "102020"] means that month 9 of 2020 and month 10 of 2020
-//     have days that will be reserved
-
-const listingSchema = new mongoose.Schema({
+const reservationSchema = new mongoose.Schema({
+  reservationId: {type: Number},
+  year: { type: Number },
+  month: { type: Number },
+  dayStart: { type: Number },
+  dayEnd: { type: Number },
+  adults: {type: Number},
+  children: {type: Number},
+  infants: {type: Number},
+  listingId: {type: Number},
   address: {type: String},
-  reservations: [ {
-    year: { type: Number },
-    month: { type: Number },
-    dayStart: { type: Number },
-    dayEnd: { type: Number },
-    adults: {type: Number},
-    children: {type: Number},
-    infants: {type: Number}
-    }
-    ],
-  room: {type: String, enum : ["entire place", "private room", "shared room"] }
+  room: {type: String, enum : ["entire place", "private room", "shared room"] },
 });
-
-// var query = listingModel.find({})
-
-// query.select('reservations')
-
-/* query.exec(function (err, reservation) {
-  if (err) {
-    return handleError(err);
-  }
-  else {
-    res.send(reservation.dayStart, reservation.dayEnd)
-  }
-  console.log('%s %s is a %s.', reservation.name.first, person.name.last,
-    person.occupation);
-});
-
-*/
 
 // Model
 // const dateModel = mongoose.model('datemodels', dateSchema);
-const listingModel = mongoose.model('listingmodels', listingSchema);
+const reservationModel = mongoose.model('reservationmodels', reservationSchema);
 
 // listingSchema.find({reservations})
 
 // Given an array of objects, save all objects to database
-const saveMany = (listing, callBack) => {
+const saveMany = (reservation, callBack) => {
 
-  mongoose.connection.dropCollection('listingmodels', (err) => {
+  mongoose.connection.dropCollection('reservationmodels', (err) => {
     if(err) {
-      console.log('error dropping listingModel');
+      console.log('error dropping reservationmodels');
     }
   })
 
-  listingModel.create(listing).then((data) => {
+  reservationModel.create(reservation).then((data) => {
     callBack(null, data)
   })
   .catch((error) => {
@@ -64,26 +40,37 @@ const saveMany = (listing, callBack) => {
 }
 
 const getAll = (callback) => {
-  dateModel.find((err, data) => {
+  reservationModel.find((err, data) => {
     if (err) {callback(err)} else {callback(null, data);}
   });
 }
 
 const getSome = (params, callback) => {
-  dateModel.find( {month: Number(params.month), year: Number(params.year)}, (err, data) => {
-    if (err) {callback(err)} else {callback(null, data);}
-  });
-}
-
-const getMonthOne = (callback) => {
-  dateModel.find({month: 1}, (err, data) => {
-    if(err) {
-      callback(err);
+  reservationModel.find( {month: Number(params.month), year: Number(params.year), reservationId: 9875812}, (err, data) => {
+    if (err) {
+    console.log('error getting', err);
+      callback(err)
     } else {
       callback(null, data);
     }
   });
+}
+
+const getReservations = (data,callback) => {
+ reservationModel.find({'listingId': data.id}, {'reservationId': 1}, function (err, data) {
+    if (err) {
+    console.log('error', err);
+    }else {
+      console.log('DATA FOR RESERVATIONS', data);
+    }
+  });
+  // ListingModel.findOne({'listingId': 9587089}, {reservations: 1});
 };
+
+const addReservation = (data, callback) => {
+  reservationModel.create()
+
+}
 
 // Post request
 
@@ -117,7 +104,7 @@ module.exports = {
   saveMany,
   getAll,
   getSome,
-  getMonthOne,
+  getReservations,
   newEntry,
   updateEntry,
   deleteEntry

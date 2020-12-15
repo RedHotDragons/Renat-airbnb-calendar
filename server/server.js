@@ -1,87 +1,90 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const mongoDb = require('../database/index.js');
+const postgresDb = require('../database/postgres.js');
 
-const models = require('./models.js');
-const db = require('../database/index.js');
 
 // middleware
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-
-// get all dates from database
-app.get('/api/calendar/reservations', (req,res)=>{
-  models.getAll((err, data) => {
-    if (err) {res.sendStatus(500)} else {
-      res.send(data);
-    }
-  });
+// to keep original services functionality
+app.get('/api/calendar/reservations/:month/:year', (req,res) => {
+postgresDb.getDays(req.params, (err, data) => {
+  if(err) {
+    console.log('error getting days');
+  } else {
+    console.log('days successfully retrieved from database');
+    res.send(data);
+  }
+});
 });
 
+
 // get dates from database with the given month and year
-app.get('/api/calendar/reservations/:month/:year', (req, res) => {
-  models.getSome(req.params, (err, data)=>{
+app.get('/api/calendar/listings/:id', (req, res) => {
+postgresDb.getReservations(req.params, (err, data)=>{
     if (err) {
       console.log('error getting some', err);
       res.sendStatus(501);
     } else {
+      console.log('successfuly got', data);
       res.send(data);
     }
   });
 });
 
-// READ operation
-// get all dates from the database that correspond to the first month
-app.get('/api/calendar/reservations/firstmonth', (req, res) => {
-  models.getMonthOne((err, data) => {
-    if(err) {
-      console.error('error getting first month');
-      res.sendStatus(501);
-    } else {
-      console.log('data has been retrieved', data);
-      res.send(data);
-    }
-  });
-});
+app.post('/listings/:listingId/reservation',(req,res) => {
 
-// CREATE operation
-// post date to the database that correspond to the first month
-app.post('/api/calendar/reservations/:month/:year',(req, res) => {
-  console.log('req params', req.params.month);
-  console.log('req params2', req.params.year);
-  db.newEntry(req.params, (err, data) => {
-     if(err) {
-       console.log('error at POST request is', err);
-       res.sendStatus(504);
-     } else {
-       console.log('stored in db')
-       res.send(data)
-     }
+    postgresDb.sendReservation(req.body, req.params, (err,data) => {
+      if(err) {
+        console.log('error sending reservation to DB', err);
+      } else {
+        console.log('sent reservation');
+      }
+    })
   });
-});
 
 // update operation to the database
-app.patch('/api/calendar/reservations/update',(req,res) => {
-  db.updateEntry((err, data) => {
+app.patch('/reservations/update/reservation/:reservationId',(req,res) => {
+  postgresDb.updateReservation(req.body,req.params,(err, data) => {
     if(err) {
       console.log('error here', err);
     } else {
-      console.log('DB updated');
+      console.log('DB updated reservation');
       res.send(data);
     }
   })
 });
 
-// delete operation to the database, which is crud
-app.delete('/api/calendar/reservations/delete', (req, res) => {
-  db.deleteEntry((err,data) => {
+app.patch('/listings/update/:listingId',(req,res) => {
+  postgresDb.updateListing(req.body,req.params,(err, data) => {
     if(err) {
       console.log('error here', err);
     } else {
-      console.log('entry was deleted');
-      res.send(data);
+      console.log('DB Listing updated');
+    }
+  })
+});
+// delete operation to the database, which is crud
+app.delete('/reservations/delete/:reservationId', (req, res) => {
+  postgresDb.deleteReservation(req.params,(err,data) => {
+    if(err) {
+      console.log('error deleting reservation', err);
+    } else {
+      console.log('reservation was deleted');
+    }
+  })
+});
+
+app.delete('/listings/delete/:listingId', (req, res) => {
+  postgresDb.deleteListing(req.params, (err, data) => {
+    if(err) {
+      console.log('error deleting listing', err);
+    } else {
+      console.log('Listing was deleted');
     }
   })
 })

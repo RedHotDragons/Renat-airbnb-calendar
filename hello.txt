@@ -1,1 +1,26 @@
-hey.
+  execution: local
+     script: k6test.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 5000 max VUs, 50s max duration (incl. graceful stop):
+           * constant_request_rate: 1100.00 iterations/s for 20s (maxVUs: 1100-5000, gracefulStop: 30s)
+
+
+running (21.0s), 0000/1211 VUs, 21250 complete and 0 interrupted iterations
+constant_request_rate ✓ [======================================] 1211/1211 VUs  20s  1100 iters/s
+
+    data_received..............: 105 MB 5.0 MB/s
+    data_sent..................: 2.3 MB 107 kB/s
+    dropped_iterations.........: 751    35.708453/s
+    http_req_blocked...........: avg=52.01µs min=1µs   med=3µs    max=41.92ms  p(90)=5µs     p(95)=349µs
+    http_req_connecting........: avg=33.51µs min=0s    med=0s     max=41.84ms  p(90)=0s      p(95)=246µs
+    http_req_duration..........: avg=49.19ms min=625µs med=1.38ms max=775.07ms p(90)=90.06ms p(95)=450.46ms
+    http_req_receiving.........: avg=40.92µs min=18µs  med=37µs   max=389µs    p(90)=58µs    p(95)=67µs
+    http_req_sending...........: avg=17.39µs min=7µs   med=14µs   max=931µs    p(90)=24µs    p(95)=38µs
+    http_req_tls_handshaking...: avg=0s      min=0s    med=0s     max=0s       p(90)=0s      p(95)=0s
+    http_req_waiting...........: avg=49.13ms min=588µs med=1.32ms max=774.97ms p(90)=90.01ms p(95)=450.33ms
+    http_reqs..................: 21250  1010.392301/s
+    iteration_duration.........: avg=1.04s   min=1s    med=1s     max=1.77s    p(90)=1.09s   p(95)=1.45s
+    iterations.................: 21250  1010.392301/s
+    vus........................: 1211   min=1100 max=1211
+    vus_max....................: 1211   min=1100 max=1211

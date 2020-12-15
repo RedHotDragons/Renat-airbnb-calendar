@@ -30,8 +30,15 @@ class Calendar extends React.Component {
     this.formatResponse = this.formatResponse.bind(this);
   }
   componentDidMount() {
-
+    this.getReservedDates(4,2019,(err, data) => {
+      if(err) {
+        console.log('error',err);
+      } else {
+        console.log('success', data);
+      }
+    });
   }
+
   changeMonth(direction) {
     // change the month
     if (direction === 'forward') {
@@ -61,8 +68,8 @@ class Calendar extends React.Component {
 
     axios.get(`/api/calendar/reservations/${month}/${year}`)
       .then(response => {
-        console.log('success');
-        callback(response.data);
+        console.log('success', response.data);
+        callback(response.data.rows);
       })
       .catch(err => console.log('error getting', err));
   }
@@ -70,7 +77,7 @@ class Calendar extends React.Component {
   formatResponse(responses) {
     var reserved = [];
     for (let obj of responses) {
-      reserved.push(obj.day);
+      reserved.push(obj.dayStart);
     }
 
     this.setState({
@@ -128,8 +135,6 @@ class Calendar extends React.Component {
   componentDidUpdate() {
     this.closest = this.props.clicked.closest;
   }
-
-
   render() {
     if (this.state.gotFromDb){
       this.state.gotFromDb = false;
