@@ -29,3 +29,11 @@ FROM '/Users/renatnorderhaug/Desktop/SDC/airbnb-calendar/listings.csv'
 DELIMITER ','
 CSV HEADER;
 
+
+/*
+ALTER TABLE reservation
+    ADD CONSTRAINT fk_reservations_listing
+    FOREIGN KEY (listingId)
+    REFERENCES listing(listingId)...
+    */
+    /* ALTER TABLE <target table> LOGGED */
