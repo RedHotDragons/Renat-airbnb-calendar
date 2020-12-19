@@ -5,6 +5,7 @@
   "author": "Arman Pithawala",
   "license": "UNLICENSED",
   "private": true,
+  
   "scripts": {
     "start": "nodemon ./server/server.js",
     "production": "node ./server/server.js",

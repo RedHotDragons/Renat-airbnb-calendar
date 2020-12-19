@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg')
-const client = new pg.Client({
+const client = new Client({
   user: 'postgres',
   host: 'ec2-54-193-22-9.us-west-1.compute.amazonaws.com',
   database: 'postgres',
@@ -8,9 +8,7 @@ const client = new pg.Client({
 })
 client.connect((err,data) => {
   if(err) {
-    console.log('ERROR',err);
-  } else {
-    console.log('DATA',data)
+    console.log('there is an error connecting',err);
   }
 });
 
@@ -36,15 +34,14 @@ client.query(`select * from reservation inner join listing on reservation.listin
   }
 });
 }
-var reservationId = Math.floor(Math.random() * 2000 + 100000002);
-var listingId = Math.floor(Math.random() * 15 + 9980910);
+
 const sendReservation = (data, params, callBack) => {
-  client.query(`insert into reservation(reservationId, dayStart, dayEnd, year, month, adults, children, infants, listingId) values (${reservationId},${data.dayStart},${data.dayEnd},${data.year},${data.month},${data.adults}, ${data.children},${data.infants}, ${params.listingId})`, (err, data) => {
+  client.query(`insert into reservation(reservationId, dayStart, dayEnd, year, month, adults, children, infants, listingId) values (${data.dayStart},${data.dayEnd},${data.year},${data.month},${data.adults}, ${data.children},${data.infants}, ${params.listingId})`, (err, data) => {
     if(err) {
       console.log('error querying');
       callBack(err);
     } else {
-      reservationId++;
+      // reservationId++;
       console.log('inserted!');
       callBack(null, data);
     }

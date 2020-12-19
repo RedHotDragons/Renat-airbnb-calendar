@@ -4,6 +4,8 @@ const path = require('path');
 const mongoDb = require('../database/index.js');
 const postgresDb = require('../database/postgres.js');
 const newrelic = require('newrelic');
+const fs = require('fs');
+
 
 
 // middleware
@@ -35,12 +37,12 @@ postgresDb.getReservations(req.params, (err, data)=>{
 });
 
 app.post('/listings/:listingId/reservation',(req,res) => {
-
+// LOOK INTO CODE HERE WHY IS POST REQUEST TAKING SO LONG
     postgresDb.sendReservation(req.body, req.params, (err,data) => {
       if(err) {
         console.log('error sending reservation to DB', err);
       } else {
-        console.log('sent reservation');
+        res.sendStatus(200);
       }
     })
   });
